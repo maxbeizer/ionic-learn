@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta charset='utf-8'>
+    <title>Ionic Lists - Part 1 | Videos | Learn Ionic</title>
+    <link href='/css/site.css' rel='stylesheet'>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-44023830-6', 'ionicframework.com');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body class='full-page no-js'>
+    <script>
+      document.body.classList.remove('no-js');
+    </script>
+    <div class='container'>
+      <div class='row'>
+        <div class='side-nav'>
+          <div class='logo'>
+            <a href='/'>
+              <img alt='Learn Ionic Framework' height='43' src='/img/learn-ionicframework@2x.png' width='194'>
+            </a>
+          </div>
+          <nav>
+            <ul>
+              <li>
+                <a class='active' href='/videos/'>
+                  <i class='ion-videos'></i>
+                  <p>Videos</p>
+                </a>
+              </li>
+              <li>
+                <a href='/formulas/'>
+                  <i class='ion-formulas'></i>
+                  <p>Formulas</p>
+                </a>
+              </li>
+              <li>
+                <a href='/talks/'>
+                  <i class='ion-talks'></i>
+                  <p>Talks</p>
+                </a>
+              </li>
+              <li>
+                <a href='/resources/'>
+                  <i class='ion-resources'></i>
+                  <p>Resources</p>
+                </a>
+              </li>
+            </ul>
+            <footer>
+              <ul>
+                <li>
+                  <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_new'>
+                    <i class='ion-suggestions'></i>
+                    <p>Suggest a Topic</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='http://forum.ionicframework.com/' target='_new'>
+                    <i class='ion-forum'></i>
+                    <p>Forums</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://github.com/driftyco/ionic' target='_new'>
+                    <i class='ion-github'></i>
+                    <p>Github</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://twitter.com/ionicframework' target='_new'>
+                    <i class='ion-twitter'></i>
+                    <p>Twitter</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://plus.google.com/+Ionicframework/posts' target='_new'>
+                    <i class='ion-googleplus'></i>
+                    <p>Plus</p>
+                  </a>
+                </li>
+              </ul>
+            </footer>
+            <form action='http://codiqa.createsend.com/t/t/s/thodi/' class='email-digest' method='post'>
+              <label for='cm-thodi-thodi'>
+                <p>Sign up for the weekly Learn Digest!</p>
+              </label>
+              <div class='digest-wrapper'>
+                <input name='cm-thodi-thodi' placeholder='Email address' required type='email'>
+                <input type='submit' value='Go'>
+              </div>
+            </form>
+            <div class='email-digest-success'>
+              <p>Thanks for signing up. Every Friday you'll get an update on all of the new and exciting lessons on Learn Ionic!</p>
+            </div>
+          </nav>
+        </div>
+        <div class='main-pane'>
+          <div class='content video'>
+            <nav>
+              <a class='left' href='/videos/'>
+                <i class='ion-chevron-left'></i>
+                <span style='margin-left:-5px;'>All Videos</span>
+              </a>
+            </nav>
+            <article>
+              <header>
+                <h1>Ionic Lists - Part 1</h1>
+                <div class='byline'>
+                  <img src='/img/authors/gerred-dillon.png'>
+                  <span class='author'>
+                    Written by
+                    <a href='https://twitter.com/justicefries' target='_new'>Gerred Dillon</a>
+                  </span>
+                  <time></time>
+                </div>
+                <p class='description'>A core element to any app is the display of lists. From todos to social feeds, lists are the building block for much more complex UIs. Learn about lists in Ionic in this video.</p>
+              </header>
+              <iframe allowfullscreen='' frameborder='0' height='505' src='//www.youtube.com/embed/G_n8r2VDuZ0' width='847'></iframe>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a data-toggle='tab' href='#details'>Details</a>
+                </li>
+                <li>
+                  <a data-toggle='tab' href='#transcript'>Transcript</a>
+                </li>
+                <li>
+                  <a data-toggle='tab' href='#similar-videos'>Similar Videos</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='details'>
+                  <h2 id="resources">Resources:</h2>
+                  
+                  <p><a href="https://docs.angularjs.org/api/ng/directive/ngRepeat">ng-repeat documentation</a></p>
+                  
+                  <p><a href="http://ionicframework.com/docs/api/directive/ionList/">ion-list documentation</a></p>
+                  
+                  <p><a href="http://learn.ionicframework.com/formulas/navigation-bar-vs-header-bar/">ion-header-bar Formula</a></p>
+                </div>
+                <div class='tab-pane' id='transcript'>
+                  <article>
+                    <p>Let’s talk about lists. Lists are a core UI element of any mobile app, and almost every app has some type of list. Because they are so essential to building an app, Ionic makes it easy to work with them.</p>
+                    
+                    <p>Here, I have the basic skeleton for an Ionic app. To add a list, let’s use the <code>ion-list</code> and <code>ion-item</code> directives. Creating a list of 5 items with these directives is pretty straightforward. When we refresh we can see that we have native-like scrolling and something that looks like a list.</p>
+                    
+                    <p>It’s worth noting this works like any other directive in Angular. It wouldn’t be a list if we couldn’t add some data. First, I’m going to add our Todos controller into the markup. Next, I’m going to create the controller on the JavaScript side.</p>
+                    
+                    <p>Let’s add some todos to our scope. I already have a few, for some chores around the house. Right now, the markup for our list is static and won’t respond to updates. Let’s change that using the <code>ng-repeat</code> directive. If you’re new to AngularJS, and don’t know what <code>ng-repeat</code> means, check out the notes for a link to the documentation on it.</p>
+                    
+                    <p>Now that we’re done, we can save, refresh, and check out our list to see that it’s data driven. From our controller, we can remove items, add items, save, and watch it all update.</p>
+                    
+                    <p>But it wouldn’t really be a todo list if we couldn’t add some items to it. Fortunately, adding to our list is as simple as adding to the todos array in our scope. For this example, I’m just going to add a header button. If this example looks unfamiliar to you, check out the formula for header bars in the notes.</p>
+                    
+                    <p>We now have an add button that is pointing to an addTodo function on click, so let’s wire that up. For our todo list, I’m just going to push a todo onto the end of our todos array. Now we can save, refresh, and try it out. When we click add, we watch the todos get added to the list.</p>
+                    
+                    <p>No todo list would be complete without a delete function. Ionic ships with that function by letting you toggle a delete mode on your list. Let’s add a flag to our scope to help us maintain that state.</p>
+                    
+                    <p>Back in the markup add a <code>show-delete</code> directive to <code>ion-list</code>. This directive is used to determine if the list is in delete mode. If it is, the list will display a delete drawer next to each <code>ion-item</code> in the list. We also need a header button to toggle whether or not we are in delete mode. I’m just going to add a simple button that does that.</p>
+                    
+                    <p>Right now, we don’t actually have a delete button. Ionic is flexible in letting you decide exactly what that should look like. In this case I’m just going to replace our item with a standard looking delete button. When it’s clicked, all we’re going to do is splice that item out of the array and let the scope update.</p>
+                    
+                    <p>Now when we add some items, we can toggle delete, and remove them from our array again. This gets us started with using lists in Ionic.</p>
+                    
+                    <p>In the notes, I’ve linked to a formula that talks about lists more in depth. This includes infinite lists, reordering lists, and more. </p>
+                  </article>
+                </div>
+                <div class='tab-pane' id='similar-videos'>
+                  <div class='similar-items list'>
+                    <div class='item-row'>
+                      <div class='similar-item'>
+                        <a href='/videos/ion-tabs-directive/'>Making Tabbed Interfaces in Ionic</a>
+                        <p>Learn how to easily make tabbed interfaces, one of the most common UI patterns for mobile, in Ionic.</p>
+                      </div>
+                      <div class='rule'></div>
+                      <div class='similar-item'>
+                        <a href='/videos/sidemenu/'>The Sidemenu</a>
+                        <p>The side menu is a great way to display content without losing a lot of screen real estate. Learn how to add the side menu to your apps.</p>
+                      </div>
+                    </div>
+                    <div class='item-row'>
+                      <div class='similar-item'>
+                        <a href='/videos/getting-started/'>Introduction to Ionic for iOS</a>
+                        <p>Learn how to start using Ionic for iOS with this video. An introduction, prerequisites, and getting a basic application running on a simulator will all be shown.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <footer class='main'>
+        <span class='attribution'>&copy; 2014 Drifty Co.</span>
+        <span class='expand-wrapper'>
+          <span class='expand'></span>
+        </span>
+        <nav id='nav'>
+          <a href='http://ionicframework.com' target='_blank'>Ionic</a>
+          <a href='https://github.com/driftyco/ionic' target='_blank'>Github</a>
+          <a href='mailto:hi@ionicframework.com' target='_blank'>Contact us</a>
+          <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_blank'>Suggestions</a>
+          <a href='http://ionicons.com/' target='_blank'>Ionicons</a>
+          <a href='http://ionicframework.com/jobs/' target='_blank'>Jobs</a>
+          <a href='http://forum.ionicframework.com/' target='_blank'>Forum</a>
+          <a href='http://ionicframework.com/blog/' target='_blank'>Blog</a>
+          <a href='http://drifty.com' target='_blank'>Drifty Co</a>
+        </nav>
+      </footer>
+    </div>
+    <div class='get-ionic-wrapper viewed'>
+      <a class='get-ionic' href='http://www.ionicframework.com' target='_new'>Get building with Ionic today!</a>
+      <a class='close-cta ion-ios7-close-empty' href='#'></a>
+    </div>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js'></script>
+    <script src='//scratch.ionicsdk.com/static/js/embed.js'></script>
+    <script src='/js/main.js'></script>
+  </body>
+</html>
