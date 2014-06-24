@@ -3,7 +3,7 @@
   <head>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta charset='utf-8'>
-    <title>Pull to Refresh | Formulas | Learn Ionic</title>
+    <title>Understanding Action Sheets | Formulas | Learn Ionic</title>
     <link href='/css/site.css' rel='stylesheet'>
     <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
     <script>
@@ -112,7 +112,7 @@
             </nav>
             <article>
               <header>
-                <h1>Pull to Refresh</h1>
+                <h1>Understanding Action Sheets</h1>
                 <div class='byline'>
                   <img src='/img/authors/gerred-dillon.png'>
                   <span class='author'>
@@ -126,32 +126,37 @@
                   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                 </div>
               </header>
-              <h2 id="refreshing-a-list">Refreshing a List</h2>
+              <h2 id="introducing-action-sheets">Introducing Action Sheets</h2>
               
-              <p>Adding pull-to-refresh functionality to a list is easy in Ionic. To start, we create a basic Ionic list, but with one change. By prepending the <code>ion-refresher</code> directive outside of the list, we add everything we need:</p>
+              <p>Action sheets are a very useful way of providing contextual actions on a component. They are simple to create with Ionic by using the <code>$ionicActionSheet</code> service exposed to developers. In Ionic, action sheets support multiple buttons, including destructive and cancel operations, in a simple interface.</p>
               
-              <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;body</span> <span class="attribute-name">ng-app</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ionicApp</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;ion-header-bar</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">bar-energized</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;h1</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Pull to Refresh!<span class="tag">&lt;/h1&gt;</span>&#x000A;  <span class="tag">&lt;/ion-header-bar&gt;</span>&#x000A;  <span class="tag">&lt;ion-content</span> <span class="attribute-name">ng-controller</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">TodosCtrl</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;ion-refresher</span> <span class="attribute-name">pulling-text</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Pull to refresh</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">on-refresh</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">doRefresh()</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;/ion-refresher&gt;</span>&#x000A;    <span class="tag">&lt;ion-list&gt;</span>&#x000A;      <span class="tag">&lt;ion-item</span> <span class="attribute-name">ng-repeat</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">todo in todos</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>{{todo.name}}<span class="tag">&lt;/ion-item&gt;</span>&#x000A;    <span class="tag">&lt;/ion-list&gt;</span>     &#x000A;  <span class="tag">&lt;/ion-content&gt;</span>&#x000A;&#x000A;<span class="tag">&lt;/body&gt;</span></pre></div>
-              </div>
-              </div>
+              <p>In this formula, we will show how to open an action sheet. However, we will use the <code>on-hold</code> directive to only open the sheet when a particular todo is held for a certain amount of time.</p>
               
-              <p>The <code>ion-refresher</code> directive takes several attributes, but the most important is the <code>on-refresh</code> handler. This will call the associated function on your controller. To setup the controller, we create a basic Ionic application:</p>
+              <h2 id="opening-an-action-sheet">Opening an Action Sheet</h2>
               
-              <div><div class="CodeRay">
-                <div class="code"><pre><span class="keyword">var</span> app = angular.module(<span class="string"><span class="delimiter">'</span><span class="content">ionicApp</span><span class="delimiter">'</span></span>, [<span class="string"><span class="delimiter">'</span><span class="content">ionic</span><span class="delimiter">'</span></span>])&#x000A;&#x000A;app.controller(<span class="string"><span class="delimiter">'</span><span class="content">TodosCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$scope</span>) {&#x000A;  <span class="predefined">$scope</span>.todos =  [&#x000A;    {<span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Do the dishes</span><span class="delimiter">&quot;</span></span>},&#x000A;    {<span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Take out the trash</span><span class="delimiter">&quot;</span></span>}&#x000A;  ]&#x000A;  &#x000A;  <span class="predefined">$scope</span>.<span class="function">doRefresh</span> = <span class="keyword">function</span>() {&#x000A;    <span class="predefined">$scope</span>.todos.unshift({<span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">Incoming todo </span><span class="delimiter">'</span></span> + Date.now()})&#x000A;    <span class="predefined">$scope</span>.<span class="predefined">$broadcast</span>(<span class="string"><span class="delimiter">'</span><span class="content">scroll.refreshComplete</span><span class="delimiter">'</span></span>);&#x000A;    <span class="predefined">$scope</span>.<span class="predefined">$apply</span>()&#x000A;  };&#x000A;  &#x000A;})</pre></div>
-              </div>
-              </div>
-              
-              <p>Because we are making simple scope changes outside of the context of a digest cycle, we have to use <code>$scope.$apply()</code>. Typically, data will come from an external source, like ng-resource, Restangular, or the <code>$http</code> directive. In this case, we can use a promise and manually running a digest cycle is not necessary:</p>
+              <p>In this particular example, we will start with the Javascript. Opening an action sheet is simple:</p>
               
               <div><div class="CodeRay">
-                <div class="code"><pre><span class="predefined">$http</span>.get(<span class="string"><span class="delimiter">'</span><span class="content">/my_resource</span><span class="delimiter">'</span></span>)&#x000A;.success(<span class="keyword">function</span>(data) {&#x000A;  <span class="predefined">$scope</span>.resource = data.resource&#x000A;})&#x000A;.<span class="keyword">finally</span>(<span class="keyword">function</span>() {&#x000A;  <span class="predefined">$scope</span>.<span class="predefined">$broadcast</span>(<span class="string"><span class="delimiter">'</span><span class="content">scroll.refreshComplete</span><span class="delimiter">'</span></span>)&#x000A;})</pre></div>
+                <div class="code"><pre>app.controller(<span class="string"><span class="delimiter">'</span><span class="content">MainCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$scope</span>, <span class="predefined">$ionicActionSheet</span>) {&#x000A;  <span class="predefined">$scope</span>.<span class="function">showDetails</span> = <span class="keyword">function</span>() {&#x000A;    <span class="predefined">$ionicActionSheet</span>.show({&#x000A;     <span class="key">buttons</span>: [&#x000A;       { <span class="key">text</span>: <span class="string"><span class="delimiter">'</span><span class="content">Complete</span><span class="delimiter">'</span></span> }&#x000A;     ],&#x000A;     <span class="key">destructiveText</span>: <span class="string"><span class="delimiter">'</span><span class="content">Delete</span><span class="delimiter">'</span></span>,&#x000A;     <span class="key">titleText</span>: <span class="string"><span class="delimiter">'</span><span class="content">Update Todo</span><span class="delimiter">'</span></span>,&#x000A;     <span class="key">cancelText</span>: <span class="string"><span class="delimiter">'</span><span class="content">Cancel</span><span class="delimiter">'</span></span>,&#x000A;     <span class="function">buttonClicked</span>: <span class="keyword">function</span>(index) {&#x000A;       <span class="keyword">return</span> <span class="predefined-constant">true</span>;&#x000A;     }&#x000A;   });&#x000A;&#x000A;  }&#x000A;})</pre></div>
               </div>
               </div>
               
-              <p>The important thing to remember here is that the <code>scroll.refreshComplete</code> event must be called to resume normal use of the list.</p>
+              <p>It is critical to remember the <code>$ionicActionSheet</code> service. The <code>show</code> function of the service will display an action sheet using the provided attributes. In this case, we will have a three button action sheet. These will complete or delete a Todo, or exit in case we don’t want to do either of those actions.</p>
               
-              <p>Check it out below in the Scratchpad!</p>
+              <h2 id="tap-and-hold">Tap and hold</h2>
+              
+              <p>Other formulas will dive into the depths of using custom gestures within Ionic. In this example, we will use the <code>on-hold</code> directive to only call our function when we hold down on the particular element. The HTML for it is simple:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="tag">&lt;ion-list&gt;</span>&#x000A;  <span class="tag">&lt;ion-item</span> <span class="attribute-name">on-hold</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">showDetails()</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Do Laundry<span class="tag">&lt;/ion-item&gt;</span>&#x000A;<span class="tag">&lt;/ion-list&gt;</span></pre></div>
+              </div>
+              </div>
+              
+              <p>There is a full list of events available in the <a href="http://ionicframework.com/docs/">Ionic Documentation</a>.</p>
+              
+              <h2 id="check-it-out">Check it Out</h2>
+              
+              <p>In the scratchpad below, tap and hold on the Todo item to show the action sheet. From there, you can customize it to your liking.</p>
               <section class='scratchpad'>
                 <p>Try this tutorial out below in the Scratchpad:</p>
                 <div id='scratch'></div>
@@ -161,14 +166,14 @@
                 <div class='similar-items list'>
                   <div class='item-row'>
                     <div class='similar-item'>
-                      <a href='/formulas/action-sheets/'>Understanding Action Sheets</a>
-                      <p>Action sheets can be a useful UI for providing contextual actions. Learn how to create one, and use custom gestures as a bonus.</p>
+                      <a href='/formulas/using-the-grid/'>Using the Grid</a>
+                      <p>Get started with using Ionic's grid system to organize your content.</p>
                     </div>
                   </div>
                   <div class='rule'></div>
                   <div class='similar-item'>
-                    <a href='/formulas/using-the-grid/'>Using the Grid</a>
-                    <p>Get started with using Ionic's grid system to organize your content.</p>
+                    <a href='/formulas/pull-to-refresh/'>Pull to Refresh</a>
+                    <p>Update your lists in real time using pull-to-refresh with the handy ion-refresher directive!</p>
                   </div>
                   <div class='item-row'>
                     <div class='similar-item'>
