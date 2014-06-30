@@ -18,7 +18,7 @@
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/action-sheets/template.html</loc>
-    <lastmod>2014-06-24</lastmod>
+    <lastmod>2014-06-30</lastmod>
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/angularjs/</loc>
@@ -71,6 +71,18 @@
   <url>
     <loc>http://learn.ionicframework.com/formulas/localstorage/template.html</loc>
     <lastmod>2014-06-24</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/making-modals/</loc>
+    <lastmod>2014-06-30</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/making-modals/style.css</loc>
+    <lastmod>2014-06-24</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/making-modals/template.html</loc>
+    <lastmod>2014-06-30</lastmod>
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/navigation-and-routing-part-1/</loc>
@@ -165,5 +177,9 @@
   <url>
     <loc>http://learn.ionicframework.com/videos/sidemenu/</loc>
     <lastmod>2014-05-09</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/videos/windows-android/</loc>
+    <lastmod>2014-06-30</lastmod>
   </url>
 </urlset>

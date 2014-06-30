@@ -3,7 +3,7 @@
   <head>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta charset='utf-8'>
-    <title>Ionic Lists - Part 1 | Videos | Learn Ionic</title>
+    <title>Installing Cordova and the Android SDK on Windows 7 and 8 | Videos | Learn Ionic</title>
     <link href='/css/site.css' rel='stylesheet'>
     <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
     <script>
@@ -112,12 +112,12 @@
             </nav>
             <article>
               <header>
-                <h1>Ionic Lists - Part 1</h1>
+                <h1>Installing Cordova and the Android SDK on Windows 7 and 8</h1>
                 <div class='byline'>
-                  <img src='/img/authors/gerred-dillon.png'>
+                  <img src='/img/authors/max-lynch.png'>
                   <span class='author'>
                     Written by
-                    <a href='https://twitter.com/justicefries' target='_new'>Gerred Dillon</a>
+                    <a href='https://twitter.com/maxlynch' target='_new'>Max Lynch</a>
                   </span>
                   <time></time>
                 </div>
@@ -125,9 +125,9 @@
                   <a href="https://twitter.com/share" class="twitter-share-button" data-via="ionicframework" data-related="ionicframework">Tweet</a>
                   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                 </div>
-                <p class='description'>A core element to any app is the display of lists. From todos to social feeds, lists are the building block for much more complex UIs. Learn about lists in Ionic in this video.</p>
+                <p class='description'>A walkthrough on installing Cordova, Android, and Ionic on Windows 7 and 8</p>
               </header>
-              <iframe allowfullscreen='' frameborder='0' height='505' src='//www.youtube.com/embed/G_n8r2VDuZ0' width='847'></iframe>
+              <iframe allowfullscreen='' frameborder='0' height='505' src='//www.youtube.com/embed/RNrNIHQ9cWo?hd=1' width='847'></iframe>
               <ul class='nav nav-tabs'>
                 <li class='active'>
                   <a data-toggle='tab' href='#details'>Details</a>
@@ -141,58 +141,99 @@
               </ul>
               <div class='tab-content'>
                 <div class='tab-pane active' id='details'>
-                  <h2 id="resources">Resources:</h2>
+                  <h2 id="download-and-install-java">1: Download and Install Java</h2>
                   
-                  <p><a href="https://docs.angularjs.org/api/ng/directive/ngRepeat">ng-repeat documentation</a></p>
+                  <p>Download and install a <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">recent release</a> of the Java SDK for your computer.</p>
                   
-                  <p><a href="http://ionicframework.com/docs/api/directive/ionList/">ion-list documentation</a></p>
+                  <p>You should be able to open a <em>new</em> instance of <code>cmd.exe</code> and run <code>java</code> without problems. If not (you made sure to open a <em>new</em> cmd window, right?), then open your system environment variables, and add to or create a new user variable called <code>PATH</code> with the full path to the <code>bin</code> folder of the new Java SDK installation.</p>
                   
-                  <p><a href="http://learn.ionicframework.com/formulas/navigation-bar-vs-header-bar/">ion-header-bar Formula</a></p>
+                  <h2 id="download-apache-ant">2: Download Apache Ant</h2>
+                  
+                  <p>Apache Ant is needed by Android and Cordova for building projects.</p>
+                  
+                  <p>Download and extract this zip file somewhere on your computer: <a href="http://mirror.tcpdiag.net/apache//ant/binaries/apache-ant-1.9.4-bin.zip">http://mirror.tcpdiag.net/apache//ant/binaries/apache-ant-1.9.4-bin.zip</a></p>
+                  
+                  <p>Add the full path to the <code>bin/</code> folder to the end of your PATH environment variable.</p>
+                  
+                  <h2 id="download-the-android-sdk">3: Download the Android SDK</h2>
+                  
+                  <p>Go and download the <a href="http://developer.android.com/sdk/index.html">Android SDK</a>:</p>
+                  
+                  <p><img src="/img/formulas/windows-android/android.jpg" alt="Android" /></p>
+                  
+                  <h2 id="add-android-to-path">3: Add Android to PATH</h2>
+                  
+                  <p>We need to tell Windows where our Android SDK lives.</p>
+                  
+                  <p>Open up your environment variables setting and add the full path to both the <code>adt-bundle/sdk/platform-tools/</code> folder and the <code>adt-bundle/sdk/tools/</code> folder to the end of your PATH variable:</p>
+                  
+                  <p><img src="/img/formulas/windows-android/android.jpg" alt="Android Env" /></p>
+                  
+                  <p>You should be able to open a <em>new</em> <code>cmd.exe</code> instance, and run <code>android</code> to see the list of android targets you can install.</p>
+                  
+                  <p>Go ahead and install version 19 for now, which will give us support for developing for Android 4.4 (target older versions for older Androids).</p>
+                  
+                  <h2 id="install-or-update-nodejs">4: Install or update Node.js</h2>
+                  
+                  <p>Download the most recent version of <a href="http://nodejs.org/">Node.js</a>. If you are running an older version of Node, make sure to update it because older versions had issues with npm.</p>
+                  
+                  <p>As with the other commands, <code>nodejs</code> should now function in <code>cmd.exe</code> but just to be careful, add the full path to the <code>bin</code> folder in Node to your <code>PATH</code>, which will look something like <code>C:\Program Files\nodejs\bin</code>.</p>
+                  
+                  <h2 id="install-cordova">5: Install Cordova</h2>
+                  
+                  <p>Open a new <code>cmd.exe</code> window, and run:</p>
+                  
+                  <div><div class="CodeRay">
+                    <div class="code"><pre>$ npm install -g cordova&#x000A;        </pre></div>
+                  </div>
+                  </div>
+                  
+                  <h2 id="install-ionic">6: Install Ionic</h2>
+                  
+                  <p>In the same <code>cmd.exe</code> window, run:</p>
+                  
+                  <div><div class="CodeRay">
+                    <div class="code"><pre>$ npm install -g ionic&#x000A;        </pre></div>
+                  </div>
+                  </div>
+                  
+                  <h2 id="start-a-project">7: Start a project</h2>
+                  
+                  <p>Now that everything is installed, we can finally create an Ionic project! Go ahead and run:</p>
+                  
+                  <div><div class="CodeRay">
+                    <div class="code"><pre>$ ionic start myapp&#x000A;        $ ionic platform add android&#x000A;        </pre></div>
+                  </div>
+                  </div>
+                  
+                  <p>Which should complete. If you run into an issue with an error related to <code>plugman</code> (a Cordova issue), you’ll need to manually create the folder <code>$USER\AppData\Local\Temp\plugman\git</code> and run it again.</p>
+                  
+                  <h2 id="build-test-deploy">8: Build, test, deploy!</h2>
+                  
+                  <p>Everything should be working now. To test it, try doing <code>ionic build android</code> and then connect a device or <a href="http://www.genymotion.com/">Genymotion</a> instance and run <code>ionic run android</code></p>
+                  
+                  <p>Please let us know if you encounter any issues and we will revise this tutorial.</p>
                 </div>
                 <div class='tab-pane' id='transcript'>
-                  <article>
-                    <p>Let’s talk about lists. Lists are a core UI element of any mobile app, and almost every app has some type of list. Because they are so essential to building an app, Ionic makes it easy to work with them.</p>
-                    
-                    <p>Here, I have the basic skeleton for an Ionic app. To add a list, let’s use the <code>ion-list</code> and <code>ion-item</code> directives. Creating a list of 5 items with these directives is pretty straightforward. When we refresh we can see that we have native-like scrolling and something that looks like a list.</p>
-                    
-                    <p>It’s worth noting this works like any other directive in Angular. It wouldn’t be a list if we couldn’t add some data. First, I’m going to add our Todos controller into the markup. Next, I’m going to create the controller on the JavaScript side.</p>
-                    
-                    <p>Let’s add some todos to our scope. I already have a few, for some chores around the house. Right now, the markup for our list is static and won’t respond to updates. Let’s change that using the <code>ng-repeat</code> directive. If you’re new to AngularJS, and don’t know what <code>ng-repeat</code> means, check out the notes for a link to the documentation on it.</p>
-                    
-                    <p>Now that we’re done, we can save, refresh, and check out our list to see that it’s data driven. From our controller, we can remove items, add items, save, and watch it all update.</p>
-                    
-                    <p>But it wouldn’t really be a todo list if we couldn’t add some items to it. Fortunately, adding to our list is as simple as adding to the todos array in our scope. For this example, I’m just going to add a header button. If this example looks unfamiliar to you, check out the formula for header bars in the notes.</p>
-                    
-                    <p>We now have an add button that is pointing to an addTodo function on click, so let’s wire that up. For our todo list, I’m just going to push a todo onto the end of our todos array. Now we can save, refresh, and try it out. When we click add, we watch the todos get added to the list.</p>
-                    
-                    <p>No todo list would be complete without a delete function. Ionic ships with that function by letting you toggle a delete mode on your list. Let’s add a flag to our scope to help us maintain that state.</p>
-                    
-                    <p>Back in the markup add a <code>show-delete</code> directive to <code>ion-list</code>. This directive is used to determine if the list is in delete mode. If it is, the list will display a delete drawer next to each <code>ion-item</code> in the list. We also need a header button to toggle whether or not we are in delete mode. I’m just going to add a simple button that does that.</p>
-                    
-                    <p>Right now, we don’t actually have a delete button. Ionic is flexible in letting you decide exactly what that should look like. In this case I’m just going to replace our item with a standard looking delete button. When it’s clicked, all we’re going to do is splice that item out of the array and let the scope update.</p>
-                    
-                    <p>Now when we add some items, we can toggle delete, and remove them from our array again. This gets us started with using lists in Ionic.</p>
-                    
-                    <p>In the notes, I’ve linked to a formula that talks about lists more in depth. This includes infinite lists, reordering lists, and more. </p>
-                  </article>
+                  <article></article>
                 </div>
                 <div class='tab-pane' id='similar-videos'>
                   <div class='similar-items list'>
                     <div class='item-row'>
                       <div class='similar-item'>
-                        <a href='/videos/windows-android/'>Installing Cordova and the Android SDK on Windows 7 and 8</a>
-                        <p>A walkthrough on installing Cordova, Android, and Ionic on Windows 7 and 8</p>
+                        <a href='/videos/ion-tabs-directive/'>Making Tabbed Interfaces in Ionic</a>
+                        <p>Learn how to easily make tabbed interfaces, one of the most common UI patterns for mobile, in Ionic.</p>
                       </div>
                       <div class='rule'></div>
                       <div class='similar-item'>
-                        <a href='/videos/ion-tabs-directive/'>Making Tabbed Interfaces in Ionic</a>
-                        <p>Learn how to easily make tabbed interfaces, one of the most common UI patterns for mobile, in Ionic.</p>
+                        <a href='/videos/sidemenu/'>The Sidemenu</a>
+                        <p>The side menu is a great way to display content without losing a lot of screen real estate. Learn how to add the side menu to your apps.</p>
                       </div>
                     </div>
                     <div class='item-row'>
                       <div class='similar-item'>
-                        <a href='/videos/sidemenu/'>The Sidemenu</a>
-                        <p>The side menu is a great way to display content without losing a lot of screen real estate. Learn how to add the side menu to your apps.</p>
+                        <a href='/videos/intro-to-lists-in-ionic/'>Ionic Lists - Part 1</a>
+                        <p>A core element to any app is the display of lists. From todos to social feeds, lists are the building block for much more complex UIs. Learn about lists in Ionic in this video.</p>
                       </div>
                       <div class='rule'></div>
                       <div class='similar-item'>
@@ -204,6 +245,23 @@
                 </div>
               </div>
             </article>
+            <div style='margin: 20px 0'>
+              <h4>
+                Leave your comments below:
+              </h4>
+            </div>
+            <div id="disqus_thread"></div>
+            <script>
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'ioniclearn'; // required: replace example with your forum shortname
+              
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
           </div>
         </div>
       </div>
