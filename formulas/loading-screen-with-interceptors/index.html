@@ -3,7 +3,7 @@
   <head>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta charset='utf-8'>
-    <title>Using the Grid | Formulas | Learn Ionic</title>
+    <title>Global Loading Screen with Interceptors | Formulas | Learn Ionic</title>
     <link href='/css/site.css' rel='stylesheet'>
     <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
     <script>
@@ -112,7 +112,7 @@
             </nav>
             <article>
               <header>
-                <h1>Using the Grid</h1>
+                <h1>Global Loading Screen with Interceptors</h1>
                 <div class='byline'>
                   <img src='/img/authors/gerred-dillon.png'>
                   <span class='author'>
@@ -126,95 +126,43 @@
                   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                 </div>
               </header>
-              <h2 id="aligning-the-app">Aligning the App</h2>
+              <h2 id="showing-a-loading-screen">Showing a loading screen</h2>
               
-              <p>Even though Ionic ships with a lot of useful UI components for building native applications, sometimes more granular control is needed over layout. For this, Ionic provides a grid system to create UIs of any complexity.</p>
-              
-              <p>Ionic’s grid system uses the CSS Flexible Box Layout Module standard to provide customizability that would be otherwise difficult to achieve.</p>
-              
-              <p>At it’s simplist, Ionic’s grid system is composed of divs with the class <code>row</code>, with divs having the class <code>col</code></p>
-              
-              <h2 id="making-equal-splits">Making equal splits</h2>
-              
-              <p>To make a row with equally spaced columns, simply nest the <code>col</code> divs within the <code>row</code> div:</p>
+              <p>Ionic ships with a built-in loading screen for making requests, disabling the UI and letting the user know that a blocking action is happening. To start, let’s get familiar with <code>$ionicLoading</code> by making an API request to the Open Beer Database. We will also use the <code>jsonp</code> function of the <code>$http</code> directive to make a cross domain request.</p>
               
               <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block button-positive</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
+                <div class="code"><pre>app.controller(<span class="string"><span class="delimiter">'</span><span class="content">MainCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$http</span>, <span class="predefined">$ionicLoading</span>) {&#x000A;  <span class="keyword">var</span> _this = <span class="local-variable">this</span>&#x000A;  <span class="predefined">$ionicLoading</span>.show({&#x000A;    <span class="key">template</span>: <span class="string"><span class="delimiter">'</span><span class="content">loading</span><span class="delimiter">'</span></span>&#x000A;  })&#x000A;  <span class="predefined">$http</span>.jsonp(<span class="string"><span class="delimiter">'</span><span class="content">http://api.openbeerdatabase.com/v1/breweries.json?callback=JSON_CALLBACK</span><span class="delimiter">'</span></span>).then(<span class="keyword">function</span>(result) {&#x000A;    <span class="predefined">$ionicLoading</span>.hide()&#x000A;    _this.breweries = result.data.breweries&#x000A;  })&#x000A;})</pre></div>
               </div>
               </div>
               
-              <h2 id="adjusting-the-size">Adjusting the size</h2>
+              <p>This request is successful, and we can view a list of breweries. When this is run, a loading screen is shown, and disappears when the request finishes. While this achieves the intended effect, it is not exactly what we want.</p>
               
-              <p>Columns can also be of varying sizes, and have differing offsets. Ionic has a multitude of percentage-based options for structuring the grid. This example shows a button that takes up half the screen, followed by a second button that is a half the size with a slight offset:</p>
+              <p>In the above example, other controllers and services making HTTP request would have to make use of the same code, causing repetition throughout the codebase. Changes to the loading screen would have to be made in multiple places.</p>
+              
+              <p>Even worse, our HTTP request (or service) must now concern itself with knowing about <code>$ionicLoading</code>, becoming tightly coupled to it’s implementation. Fortunately, there’s a better way.</p>
+              
+              <h2 id="enter-http-interceptors">Enter HTTP interceptors</h2>
+              
+              <p>Angular’s <code>$httpProvider</code> provider has the notion of interceptors, which allow us to inject code before a request is sent, and before a response is processed by a controller. Using this, we can centralize our app’s loading code to one place, ensuring that it is easily maintainable.</p>
+              
+              <p>As a result, there is more setup, as shown below:</p>
               
               <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-50</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block button-positive</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-25 col-offset-10</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
+                <div class="code"><pre><span class="keyword">var</span> app = angular.module(<span class="string"><span class="delimiter">'</span><span class="content">ionicApp</span><span class="delimiter">'</span></span>, [<span class="string"><span class="delimiter">'</span><span class="content">ionic</span><span class="delimiter">'</span></span>])&#x000A;&#x000A;app.config(<span class="keyword">function</span>(<span class="predefined">$httpProvider</span>) {&#x000A;  <span class="predefined">$httpProvider</span>.interceptors.push(<span class="keyword">function</span>(<span class="predefined">$rootScope</span>) {&#x000A;    <span class="keyword">return</span> {&#x000A;      <span class="function">request</span>: <span class="keyword">function</span>(config) {&#x000A;        <span class="predefined">$rootScope</span>.<span class="predefined">$broadcast</span>(<span class="string"><span class="delimiter">'</span><span class="content">loading:show</span><span class="delimiter">'</span></span>)&#x000A;        <span class="keyword">return</span> config&#x000A;      },&#x000A;      <span class="function">response</span>: <span class="keyword">function</span>(response) {&#x000A;        <span class="predefined">$rootScope</span>.<span class="predefined">$broadcast</span>(<span class="string"><span class="delimiter">'</span><span class="content">loading:hide</span><span class="delimiter">'</span></span>)&#x000A;        <span class="keyword">return</span> response&#x000A;      }&#x000A;    }&#x000A;  })&#x000A;})&#x000A;&#x000A;app.run(<span class="keyword">function</span>(<span class="predefined">$rootScope</span>, <span class="predefined">$ionicLoading</span>) {&#x000A;  <span class="predefined">$rootScope</span>.<span class="predefined">$on</span>(<span class="string"><span class="delimiter">'</span><span class="content">loading:show</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>() {&#x000A;    <span class="predefined">$ionicLoading</span>.show({<span class="key">template</span>: <span class="string"><span class="delimiter">'</span><span class="content">foo</span><span class="delimiter">'</span></span>})&#x000A;  })&#x000A;&#x000A;  <span class="predefined">$rootScope</span>.<span class="predefined">$on</span>(<span class="string"><span class="delimiter">'</span><span class="content">loading:hide</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>() {&#x000A;    <span class="predefined">$ionicLoading</span>.hide()&#x000A;  })&#x000A;})&#x000A;&#x000A;app.controller(<span class="string"><span class="delimiter">'</span><span class="content">MainCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$http</span>, <span class="predefined">$ionicLoading</span>) {&#x000A;  <span class="keyword">var</span> _this = <span class="local-variable">this</span>&#x000A;&#x000A;  <span class="predefined">$http</span>.jsonp(<span class="string"><span class="delimiter">'</span><span class="content">http://api.openbeerdatabase.com/v1/breweries.json?callback=JSON_CALLBACK</span><span class="delimiter">'</span></span>).then(<span class="keyword">function</span>(result) {&#x000A;    _this.breweries = result.data.breweries&#x000A;  })&#x000A;})</pre></div>
               </div>
               </div>
               
-              <p>Offsets can precede a column too. To push a large button to the right side of the screen, we can use the <code>col-offset-</code> series of classes:</p>
+              <p>There are two things we need to do to make sure this works. First, in our module’s config step, we create the interceptor. Because we cannot inject $ionicLoading as a service into the interceptor, we must instead broadcast an event from $rootScope.</p>
               
-              <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-75 col-offset-25</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block button-energized</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
-              </div>
-              </div>
+              <p>In our app’s main run step, we listen for the appropriate events, and use <code>$ionicLoading</code> to show and hide the modal. When we run this, the effect is the same.</p>
               
-              <h2 id="going-vertical">Going vertical</h2>
+              <p>The advantage of this is that our controller or service does not know about the loading screen. We have achieved loose coupling throughout our application, and all of our HTTP requests will act the same throughout the app.</p>
               
-              <p>Because of Ionic’s use of CSS flexbox, we can also use the grid vertically. Here are three placeholder images, all with a slightly different alignment of the caption text:</p>
-              
-              <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://placehold.it/280x150</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption Top<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row row-center</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://placehold.it/280x150</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption Middle<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row row-bottom</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://placehold.it/280x150</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption Middle<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
-              </div>
-              </div>
-              
-              <p>If we need more granularity, we can do vertical alignment on the columns as well:</p>
-              
-              <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://placehold.it/150x190</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col col-top</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption Top<span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col col-bottom</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption bottom<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
-              </div>
-              </div>
-              
-              <p>This example has two captions equally spaced with the image - one sits on top, and one sits on bottom.</p>
-              
-              <p>The scratchpad below has everything you need to get started using Ionic’s grid and endlessly customizing your apps!</p>
+              <p>Check out the Scratchpad below for to see it in action!</p>
               <section class='scratchpad'>
                 <p>Try this tutorial out below in the Scratchpad:</p>
                 <div id='scratch'></div>
               </section>
-              <footer>
-                <h6>further reading</h6>
-                <div class='similar-items list'>
-                  <div class='item-row'>
-                    <div class='similar-item'>
-                      <a href='/formulas/making-modals/'>Making Modals</a>
-                      <p>Modals are an essential UI component of any app needing to show a detail view. This formula goes into the details of making those modals.</p>
-                    </div>
-                  </div>
-                  <div class='rule'></div>
-                  <div class='similar-item'>
-                    <a href='/formulas/action-sheets/'>Understanding Action Sheets</a>
-                    <p>Action sheets can be a useful UI for providing contextual actions. Learn how to create one, and use custom gestures as a bonus.</p>
-                  </div>
-                  <div class='item-row'>
-                    <div class='similar-item'>
-                      <a href='/formulas/using-the-grid/'>Using the Grid</a>
-                      <p>Get started with using Ionic's grid system to organize your content.</p>
-                    </div>
-                  </div>
-                  <div class='rule'></div>
-                  <div class='similar-item'>
-                    <a href='/formulas/pull-to-refresh/'>Pull to Refresh</a>
-                    <p>Update your lists in real time using pull-to-refresh with the handy ion-refresher directive!</p>
-                  </div>
-                  <div class='item-row'>
-                    <div class='similar-item'>
-                      <a href='/formulas/navigation-bar-vs-header-bar/'>Navigating Ionic's Headers</a>
-                      <p>Ionic includes multiple ways to display a header at the top of the screen. Learn the difference between nav bars and header bars, and when to use each.</p>
-                    </div>
-                  </div>
-                </div>
-              </footer>
             </article>
           </div>
         </div>
