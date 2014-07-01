@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta charset='utf-8'>
+    <title>Protractor e2e Testing | Formulas | Learn Ionic</title>
+    <link href='/css/site.css' rel='stylesheet'>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-44023830-6', 'ionicframework.com');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body class='full-page no-js'>
+    <script>
+      document.body.classList.remove('no-js');
+    </script>
+    <div class='container'>
+      <div class='row'>
+        <div class='side-nav'>
+          <div class='logo'>
+            <a href='/'>
+              <img alt='Learn Ionic Framework' height='43' src='/img/learn-ionicframework@2x.png' width='194'>
+            </a>
+          </div>
+          <nav>
+            <ul>
+              <li>
+                <a href='/videos/'>
+                  <i class='ion-videos'></i>
+                  <p>Videos</p>
+                </a>
+              </li>
+              <li>
+                <a class='active' href='/formulas/'>
+                  <i class='ion-formulas'></i>
+                  <p>Formulas</p>
+                </a>
+              </li>
+              <li>
+                <a href='/talks/'>
+                  <i class='ion-talks'></i>
+                  <p>Talks</p>
+                </a>
+              </li>
+              <li>
+                <a href='/resources/'>
+                  <i class='ion-resources'></i>
+                  <p>Resources</p>
+                </a>
+              </li>
+            </ul>
+            <footer>
+              <ul>
+                <li>
+                  <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_new'>
+                    <i class='ion-suggestions'></i>
+                    <p>Suggest a Topic</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='http://forum.ionicframework.com/' target='_new'>
+                    <i class='ion-forum'></i>
+                    <p>Forums</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://github.com/driftyco/ionic' target='_new'>
+                    <i class='ion-github'></i>
+                    <p>Github</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://twitter.com/ionicframework' target='_new'>
+                    <i class='ion-twitter'></i>
+                    <p>Twitter</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://plus.google.com/+Ionicframework/posts' target='_new'>
+                    <i class='ion-googleplus'></i>
+                    <p>Plus</p>
+                  </a>
+                </li>
+              </ul>
+            </footer>
+            <form action='http://codiqa.createsend.com/t/t/s/thodi/' class='email-digest' method='post'>
+              <label for='cm-thodi-thodi'>
+                <p>Sign up for the weekly Learn Digest!</p>
+              </label>
+              <div class='digest-wrapper'>
+                <input name='cm-thodi-thodi' placeholder='Email address' required type='email'>
+                <input type='submit' value='Go'>
+              </div>
+            </form>
+            <div class='email-digest-success'>
+              <p>Thanks for signing up. Every Friday you'll get an update on all of the new and exciting lessons on Learn Ionic!</p>
+            </div>
+          </nav>
+        </div>
+        <div class='main-pane'>
+          <div class='content formula'>
+            <nav>
+              <a class='left' href='/formulas/'>
+                <i class='ion-chevron-left'></i>
+                <span style='margin-left:0px;'>All Formulas</span>
+              </a>
+            </nav>
+            <article>
+              <header>
+                <h1>Protractor e2e Testing</h1>
+                <div class='byline'>
+                  <img src='/img/authors/eric-wooley.png'>
+                  <span class='author'>
+                    Written by
+                    <a href='https://twitter.com/ericwooley' target='_new'>Eric Wooley</a>
+                  </span>
+                  <time></time>
+                </div>
+                <div class='social-buttons'>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-text="Using Protractor to test ionic" data-via="ionicframework" data-related="ionicframework">Tweet</a>
+                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div>
+              </header>
+              <h2 id="preparing-to-test">Preparing to test</h2>
+              <p>Start by ensuring protractor is installed.</p>
+              
+              <p><code>npm install -g protractor</code></p>
+              
+              <p>Use the web manager to install the chrome-driver and selenium server.</p>
+              
+              <p><code>web-driver update</code></p>
+              
+              <p>Spin up an Ionic server</p>
+              
+              <p><code>ionic serve</code></p>
+              
+              <p>Now you are ready to test!</p>
+              
+              <h2 id="protractor-and-ionic-in-the-browser">Protractor and Ionic in the Browser</h2>
+              
+              <p>Create a folder for your tests in your project, this example will use <code>YourProject/test/</code>.</p>
+              
+              <pre><code>cd YourProject&#x000A;cd test&#x000A;</code></pre>
+              
+              <p>Create a protractor config file, example: <code>protractor.config.js</code>.</p>
+              
+              <pre><code>touch protractor.config.js&#x000A;</code></pre>
+              
+              <p>Add the following to <code>protractor.config.js</code>:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre>exports.config = {&#x000A;          <span class="key">capabilities</span>: {&#x000A;                  <span class="comment">// You can use other browsers</span>&#x000A;                  <span class="comment">// like firefox, phantoms, safari, IE (-_-)</span>&#x000A;                  <span class="key"><span class="delimiter">'</span><span class="content">browserName</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">chrome</span><span class="delimiter">'</span></span> &#x000A;          },&#x000A;          <span class="key">specs</span>: [&#x000A;                   <span class="comment">// We are going to make this file in a minute</span>&#x000A;                <span class="string"><span class="delimiter">'</span><span class="content">e2e/becomeAwesome.spec.js</span><span class="delimiter">'</span></span>&#x000A;          ],&#x000A;          <span class="key">jasmineNodeOpts</span>: {&#x000A;                  <span class="key">showColors</span>: <span class="predefined-constant">true</span>,&#x000A;                 <span class="key">defaultTimeoutInterval</span>: <span class="integer">30000</span>,&#x000A;                <span class="key">isVerbose</span>: <span class="predefined-constant">true</span>,&#x000A;          },&#x000A;        <span class="key">allScriptsTimeout</span>: <span class="integer">20000</span>,&#x000A;          <span class="function">onPrepare</span>: <span class="keyword">function</span>(){&#x000A;                browser.driver.get(<span class="string"><span class="delimiter">'</span><span class="content">http://localhost:3000</span><span class="delimiter">'</span></span>);&#x000A;        }&#x000A;};</pre></div>
+              </div>
+              </div>
+              
+              <p>For more on protractor configuration see <a href="https://sourcegraph.com/github.com/exratione/protractor-selenium-server-vagrant/symbols/javascript/commonjs/test/protractor.conf.base.js/-/config">here</a>.</p>
+              
+              <h2 id="writing-tests">Writing Tests</h2>
+              <p><em>This is just a brief overview, for more on protractor testing see <a href="http://www.ng-newsletter.com/posts/practical-protractor.html">this</a>.</em></p>
+              
+              <p>Create a folder to house your end to end tests, example: <code>e2e</code>.</p>
+              
+              <pre><code>mkdir e2e&#x000A;</code></pre>
+              
+              <p>Create your first test</p>
+              
+              <pre><code>touch e2e/becomeAwesome.spec.js&#x000A;</code></pre>
+              
+              <p><em>Tests in protractor heavily rely on <a href="https://github.com/kriskowal/q#tutorial">promises</a> and use <a href="http://jasmine.github.io/1.3/introduction.html">jasmine 1.3</a>. Its recommended that you understand the basics of these in order to write better tests.</em></p>
+              
+              <p>Our example page will look like this:</p>
+              
+              <pre><code>&lt;html&gt;&#x000A;	&lt;head&gt;&lt;!-- Include angularjs and all your awesome things--&gt;&lt;/head&gt;&#x000A;	&lt;body&gt;&#x000A;		&lt;p id='awesomeStatus'&gt;I am not awesome&lt;/p&gt;&#x000A;		&lt;button id='becomeAwesome'&gt;Awesome&lt;/button&gt;&#x000A;	&lt;/body&gt;&#x000A;	&lt;script type='text/javascript'&gt;&#x000A;		$('#becomeAwesome').on('click', function(){&#x000A;			$('awesomeStatus').html('I am awesome')&#x000A;		});&#x000A;	&lt;/script&gt;&#x000A;&lt;/html&gt;&#x000A;</code></pre>
+              
+              <p>Start with a basic descripe-it test in the file <code>e2e/becomeAwesome.spec.js</code>.</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="comment">// Describe a feature</span>&#x000A;describe(<span class="string"><span class="delimiter">'</span><span class="content">Becoming Awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should start out not very awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                <span class="keyword">var</span> awesomeStatus = element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">awesomeStatus</span><span class="delimiter">'</span></span>));&#x000A;                expect(awesomeStatus.getText()).toContain(<span class="string"><span class="delimiter">'</span><span class="content">I am not awesome</span><span class="delimiter">'</span></span>);&#x000A;        });&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should become awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">becomeAwesome</span><span class="delimiter">'</span></span>)).click();&#x000A;        });&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should be awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                <span class="keyword">var</span> awesomeStatus = element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">awesomeStatus</span><span class="delimiter">'</span></span>));&#x000A;                expect(awesomeStatus.getText()).toContain(<span class="string"><span class="delimiter">'</span><span class="content">I am awesome</span><span class="delimiter">'</span></span>);&#x000A;        });&#x000A;});</pre></div>
+              </div>
+              </div>
+              
+              <p>Now we are ready to run our test</p>
+              
+              <pre><code>protractor protractor.config.js&#x000A;</code></pre>
+              
+              <p>Protractor should automatically spin up a selenium server for you, then connect to it and a chrome window should pop up, click the awesome button, then fade away.</p>
+              
+              <p>Your console should display that all of the tests have passed.</p>
+              
+              <h2 id="debugging-your-tests">Debugging your tests</h2>
+              
+              <p>Unfortunately, writing tests is still programming, as such is prone to it’s own errors, so debugging is necessary. Lets says you screwed up <strong>real bad</strong>, and there is a subtle typo in your test.</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="comment">// Describe a feature</span>&#x000A;describe(<span class="string"><span class="delimiter">'</span><span class="content">Becoming Awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should start out not very awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                <span class="keyword">var</span> awesomeStatus = element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">awesomeStatus</span><span class="delimiter">'</span></span>));&#x000A;                expect(awesomeStatus.getText()).toContain(<span class="string"><span class="delimiter">'</span><span class="content">I am not awesome</span><span class="delimiter">'</span></span>);&#x000A;        });&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should become awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                <span class="comment">// This typo will cause the test to fail!</span>&#x000A;                element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">awesomeTypo</span><span class="delimiter">'</span></span>)).click();&#x000A;        });&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should be awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                <span class="keyword">var</span> awesomeStatus = element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">awesomeStatus</span><span class="delimiter">'</span></span>));&#x000A;                expect(awesomeStatus.getText()).toContain(<span class="string"><span class="delimiter">'</span><span class="content">I am awesome</span><span class="delimiter">'</span></span>);&#x000A;        });&#x000A;});</pre></div>
+              </div>
+              </div>
+              
+              <p>Because your test is <em>sooo</em> complicated, you are having a hard time figuring out whats causing the problem. </p>
+              
+              <p>Because of our misguided finger problem, and too-tired-to-see-the-typo eyes, all we know is that the test can’t complete this line <code>element(by.id('awesomeTypo')).click();</code>. Here is where debugging comes in.</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="comment">// Describe a feature</span>&#x000A;describe(<span class="string"><span class="delimiter">'</span><span class="content">Becoming Awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should start out not very awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                <span class="keyword">var</span> awesomeStatus = element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">awesomeStatus</span><span class="delimiter">'</span></span>));&#x000A;                expect(awesomeStatus.getText()).toContain(<span class="string"><span class="delimiter">'</span><span class="content">I am not awesome</span><span class="delimiter">'</span></span>);&#x000A;        });&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should become awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                 <span class="comment">// Inserting a debugger statement here</span>&#x000A;                 <span class="comment">// causes the browser to stop when it reaches this line.</span>&#x000A;                browser.<span class="reserved">debugger</span>();&#x000A;                element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">awesomeTypo</span><span class="delimiter">'</span></span>)).click();&#x000A;        });&#x000A;        it(<span class="string"><span class="delimiter">'</span><span class="content">should be awesome</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(){&#x000A;                <span class="keyword">var</span> awesomeStatus = element(by.id(<span class="string"><span class="delimiter">'</span><span class="content">awesomeStatus</span><span class="delimiter">'</span></span>));&#x000A;                expect(awesomeStatus.getText()).toContain(<span class="string"><span class="delimiter">'</span><span class="content">I am awesome</span><span class="delimiter">'</span></span>);&#x000A;        });&#x000A;});</pre></div>
+              </div>
+              </div>
+              
+              <p>Run protractor in debug mode with </p>
+              
+              <pre><code>protractor debug protractor.config.js&#x000A;</code></pre>
+              
+              <p>The browser should stop when it reaches the <code>browser.debugger();</code> statement.</p>
+              
+              <p>Now using your incredibly awesome powers of deduction, caffeine rejuvenated eyes, and the chrome developer tools: You would check the typo line, and compare it to the awesomeButton element in the dom. Hopefully, you would notice that the <code>awesomeButton</code> and <code>awesomeTypo</code> are not the same. Correct your horrific error and test on!</p>
+              
+              <h2 id="testing-in-ripple">Testing in Ripple</h2>
+              <p>Chances are your app takes advantages of some of the Cordova plugins and the like and the vanilla browser probably didn’t work to well for testing those features. We can use ripple to emulate them!</p>
+              
+              <p>Start by installing ripple-emulator and running it</p>
+              
+              <pre><code>npm install -g ripple-emulator&#x000A;cd YourApp&#x000A;ripple emulate&#x000A;</code></pre>
+              
+              <p>Update <code>test/protractor.config.js</code> file to use the ripple server port</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre>exports.config = {&#x000A;          <span class="key">capabilities</span>: {&#x000A;                  <span class="comment">// You can use other browsers</span>&#x000A;                  <span class="comment">// like firefox, phantoms, safari, IE (-_-)</span>&#x000A;                  <span class="key"><span class="delimiter">'</span><span class="content">browserName</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">chrome</span><span class="delimiter">'</span></span> &#x000A;          },&#x000A;          <span class="key">specs</span>: [&#x000A;                   <span class="comment">// We are going to make this file in a minute</span>&#x000A;                <span class="string"><span class="delimiter">'</span><span class="content">e2e/becomeAwesome.spec.js</span><span class="delimiter">'</span></span>&#x000A;          ],&#x000A;          <span class="key">jasmineNodeOpts</span>: {&#x000A;                  <span class="key">showColors</span>: <span class="predefined-constant">true</span>,&#x000A;                 <span class="key">defaultTimeoutInterval</span>: <span class="integer">30000</span>,&#x000A;                <span class="key">isVerbose</span>: <span class="predefined-constant">true</span>,&#x000A;          },&#x000A;        <span class="key">allScriptsTimeout</span>: <span class="integer">20000</span>,&#x000A;        <span class="function">onPrepare</span>: <span class="keyword">function</span>(){&#x000A;                <span class="comment">// This will use cordova 3.0.0 and iPhone5 </span>&#x000A;                <span class="comment">// device in ripple, modify as needed.</span>&#x000A;                browser.driver.get(<span class="string"><span class="delimiter">'</span><span class="content">http://localhost:4400/?enableripple=cordova-3.0.0-iPhone5</span><span class="delimiter">'</span></span>);&#x000A;        }&#x000A;};</pre></div>
+              </div>
+              </div>
+              
+              <p>Now run protractor</p>
+              
+              <pre><code>protractor protractor.config.js&#x000A;</code></pre>
+              <p>You will notice that your tests run into some problems right away. Thats because ripple doesn’t use angular, and loads your app into an iframe. There are two things we need to do to correct these issues. Update <code>test/protractor.config.js</code> to match this:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre>exports.config = {&#x000A;          <span class="key">capabilities</span>: {&#x000A;                  <span class="comment">// You can use other browsers</span>&#x000A;                  <span class="comment">// like firefox, phantoms, safari, IE (-_-)</span>&#x000A;                  <span class="key"><span class="delimiter">'</span><span class="content">browserName</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">chrome</span><span class="delimiter">'</span></span> &#x000A;          },&#x000A;          <span class="key">specs</span>: [&#x000A;                   <span class="comment">// We are going to make this file in a minute</span>&#x000A;                <span class="string"><span class="delimiter">'</span><span class="content">e2e/becomeAwesome.spec.js</span><span class="delimiter">'</span></span>&#x000A;          ],&#x000A;          <span class="key">jasmineNodeOpts</span>: {&#x000A;                  <span class="key">showColors</span>: <span class="predefined-constant">true</span>,&#x000A;                 <span class="key">defaultTimeoutInterval</span>: <span class="integer">30000</span>,&#x000A;                <span class="key">isVerbose</span>: <span class="predefined-constant">true</span>,&#x000A;          },&#x000A;        <span class="key">allScriptsTimeout</span>: <span class="integer">20000</span>,&#x000A;          <span class="function">onPrepare</span>: <span class="keyword">function</span>(){&#x000A;                browser.driver.manage().window().maximize();  &#x000A;                browser.driver.get(<span class="string"><span class="delimiter">'</span><span class="content">http://localhost:4400/?enableripple=cordova-3.0.0-iPhone5</span><span class="delimiter">'</span></span>);&#x000A;                <span class="comment">// Enable this if you get syntonization errors from protractor, </span>&#x000A;                <span class="comment">// var ptor = protractor.getInstance();</span>&#x000A;                <span class="comment">// ptor.ignoreSynchronization = true;   </span>&#x000A;                &#x000A;                <span class="comment">// Allow ripple to load</span>&#x000A;    browser.sleep(<span class="integer">2000</span>);&#x000A;                browser.driver.switchTo().frame(<span class="integer">0</span>);&#x000A;        }&#x000A;};</pre></div>
+              </div>
+              </div>
+              
+              <p>Your tests should run the same after the modifications, except for now they are inside a ripple emulator testing out all that sweet sweet Cordova functionality.</p>
+              <section class='scratchpad'>
+                <p>Try this tutorial out below in the Scratchpad:</p>
+                <div id='scratch'></div>
+              </section>
+            </article>
+          </div>
+        </div>
+      </div>
+      <footer class='main'>
+        <span class='attribution'>&copy; 2014 Drifty Co.</span>
+        <span class='expand-wrapper'>
+          <span class='expand'></span>
+        </span>
+        <nav id='nav'>
+          <a href='http://ionicframework.com' target='_blank'>Ionic</a>
+          <a href='https://github.com/driftyco/ionic' target='_blank'>Github</a>
+          <a href='mailto:hi@ionicframework.com' target='_blank'>Contact us</a>
+          <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_blank'>Suggestions</a>
+          <a href='http://ionicons.com/' target='_blank'>Ionicons</a>
+          <a href='http://ionicframework.com/jobs/' target='_blank'>Jobs</a>
+          <a href='http://forum.ionicframework.com/' target='_blank'>Forum</a>
+          <a href='http://ionicframework.com/blog/' target='_blank'>Blog</a>
+          <a href='http://drifty.com' target='_blank'>Drifty Co</a>
+        </nav>
+      </footer>
+    </div>
+    <div class='get-ionic-wrapper viewed'>
+      <a class='get-ionic' href='http://www.ionicframework.com' target='_new'>Get building with Ionic today!</a>
+      <a class='close-cta ion-ios7-close-empty' href='#'></a>
+    </div>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js'></script>
+    <script src='//scratch.ionicsdk.com/static/js/embed.js'></script>
+      <script>
+        $(function() {
+          var getTemplate = function(url) {
+            return $.ajax({url: location.pathname + '/' + url, dataType: 'text'})
+          }
+        
+          $.when(getTemplate('template.html'), getTemplate('style.css'), getTemplate('script.js')).then(function(html, css, js) {
+            var scratch = new IonicScratch({
+              el: document.getElementById('scratch'),
+              width: '100%',
+              height: '600px',
+              html: html[0],
+              css: css[0],
+              js: js[0]
+            });
+          })
+        })
+      </script>
+    <script src='/js/main.js'></script>
+  </body>
+</html>

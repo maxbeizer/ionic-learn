@@ -9,6 +9,18 @@
     <lastmod>2014-06-24</lastmod>
   </url>
   <url>
+    <loc>http://learn.ionicframework.com/formulas/Protractor/</loc>
+    <lastmod>2014-07-01</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/Protractor/style.css</loc>
+    <lastmod>2014-07-01</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/Protractor/template.html</loc>
+    <lastmod>2014-07-01</lastmod>
+  </url>
+  <url>
     <loc>http://learn.ionicframework.com/formulas/action-sheets/</loc>
     <lastmod>2014-06-24</lastmod>
   </url>
@@ -43,6 +55,18 @@
     <loc>http://learn.ionicframework.com/formulas/cordova/</loc>
   </url>
   <url>
+    <loc>http://learn.ionicframework.com/formulas/data-the-right-way/</loc>
+    <lastmod>2014-06-24</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/data-the-right-way/style.css</loc>
+    <lastmod>2014-06-24</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/data-the-right-way/template.html</loc>
+    <lastmod>2014-07-01</lastmod>
+  </url>
+  <url>
     <loc>http://learn.ionicframework.com/formulas/infinite-lists/</loc>
     <lastmod>2014-06-24</lastmod>
   </url>
@@ -56,6 +80,9 @@
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/ionic-basics/</loc>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/ionic-data/</loc>
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/ionic-lists/</loc>
@@ -134,6 +161,13 @@
   <url>
     <loc>http://learn.ionicframework.com/formulas/pull-to-refresh/template.html</loc>
     <lastmod>2014-06-24</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/return-to-top/</loc>
+    <lastmod>2014-07-01</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/testing/</loc>
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/using-the-grid/</loc>
