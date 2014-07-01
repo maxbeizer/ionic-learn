@@ -3,7 +3,7 @@
   <head>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta charset='utf-8'>
-    <title>Using the Grid | Formulas | Learn Ionic</title>
+    <title>Resolving Data the Right Way | Formulas | Learn Ionic</title>
     <link href='/css/site.css' rel='stylesheet'>
     <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
     <script>
@@ -112,7 +112,7 @@
             </nav>
             <article>
               <header>
-                <h1>Using the Grid</h1>
+                <h1>Resolving Data the Right Way</h1>
                 <div class='byline'>
                   <img src='/img/authors/gerred-dillon.png'>
                   <span class='author'>
@@ -126,95 +126,41 @@
                   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                 </div>
               </header>
-              <h2 id="aligning-the-app">Aligning the App</h2>
+              <h2 id="getting-data-into-a-controller">Getting Data Into a Controller</h2>
               
-              <p>Even though Ionic ships with a lot of useful UI components for building native applications, sometimes more granular control is needed over layout. For this, Ionic provides a grid system to create UIs of any complexity.</p>
-              
-              <p>Ionic’s grid system uses the CSS Flexible Box Layout Module standard to provide customizability that would be otherwise difficult to achieve.</p>
-              
-              <p>At it’s simplist, Ionic’s grid system is composed of divs with the class <code>row</code>, with divs having the class <code>col</code></p>
-              
-              <h2 id="making-equal-splits">Making equal splits</h2>
-              
-              <p>To make a row with equally spaced columns, simply nest the <code>col</code> divs within the <code>row</code> div:</p>
+              <p>When fetching outside data, it can be very tempting to structure an application to resolve promises within a controller. Here’s an example:</p>
               
               <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block button-positive</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
+                <div class="code"><pre>&#x000A;app.controller(<span class="string"><span class="delimiter">'</span><span class="content">ItemCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$http</span>) {&#x000A;  <span class="keyword">var</span> _this = <span class="local-variable">this</span>&#x000A;  <span class="local-variable">this</span>.items = []&#x000A;&#x000A;  <span class="predefined">$http</span>.get(<span class="string"><span class="delimiter">'</span><span class="content">/resource.json</span><span class="delimiter">'</span></span>).then(<span class="keyword">function</span>(data) {&#x000A;      _this.items = data.items&#x000A;  })&#x000A;})</pre></div>
               </div>
               </div>
               
-              <h2 id="adjusting-the-size">Adjusting the size</h2>
+              <p>This works, but is a bit messy. There is no encapsulation of our data, and we may have to repeat getting this resource across multiple controllers, making it not very DRY.</p>
               
-              <p>Columns can also be of varying sizes, and have differing offsets. Ionic has a multitude of percentage-based options for structuring the grid. This example shows a button that takes up half the screen, followed by a second button that is a half the size with a slight offset:</p>
+              <p>A first fix might be to abstract it up into a service, like so:</p>
               
               <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-50</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block button-positive</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-25 col-offset-10</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
+                <div class="code"><pre>&#x000A;app.controller(<span class="string"><span class="delimiter">'</span><span class="content">ItemCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(ItemsService) {&#x000A;  <span class="local-variable">this</span>.items = []&#x000A;&#x000A;  ItemsService.getItems().then(<span class="keyword">function</span>(items) {&#x000A;    <span class="local-variable">this</span>.items = items&#x000A;  })&#x000A;})</pre></div>
               </div>
               </div>
               
-              <p>Offsets can precede a column too. To push a large button to the right side of the screen, we can use the <code>col-offset-</code> series of classes:</p>
+              <p>Although this is more expressive and encapsulates our items into a service with all of the advantages therein, there are still problems with this approach. Code for resolving our promises must still be maintained within each controller, and API changes to the Items resource can have widespread effects on our code.</p>
+              
+              <p>Fortunately, Ionic’s navigation system, backed by <code>ui-router</code>, handles this with its resolve phase. By handling the resolution of our promise outside of the controller, we drastically clean up the controller code, and abstract our logic up into our routing layer.
+              Here’s an example of this in action:</p>
               
               <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-75 col-offset-25</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button button-block button-energized</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Button<span class="tag">&lt;/button&gt;</span>&#x000A;  <span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
+                <div class="code"><pre><span class="keyword">var</span> app = angular.module(<span class="string"><span class="delimiter">'</span><span class="content">ionicApp</span><span class="delimiter">'</span></span>, [<span class="string"><span class="delimiter">'</span><span class="content">ionic</span><span class="delimiter">'</span></span>])&#x000A;&#x000A;app.config(<span class="keyword">function</span>(<span class="predefined">$stateProvider</span>, <span class="predefined">$urlRouterProvider</span>) {&#x000A;  <span class="predefined">$urlRouterProvider</span>.otherwise(<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>)&#x000A;&#x000A;  <span class="predefined">$stateProvider</span>.state(<span class="string"><span class="delimiter">'</span><span class="content">root</span><span class="delimiter">'</span></span>, {&#x000A;    <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">template</span>: <span class="string"><span class="delimiter">'</span><span class="content">{{itemCtrl.item.name}}</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">controller</span>: <span class="string"><span class="delimiter">'</span><span class="content">ItemCtrl as itemCtrl</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">resolve</span>: {&#x000A;      <span class="function">item</span>: <span class="keyword">function</span>(ItemsService) {&#x000A;        <span class="keyword">return</span> ItemsService.getItem()&#x000A;      }&#x000A;    }&#x000A;  })&#x000A;})&#x000A;&#x000A;app.service(<span class="string"><span class="delimiter">'</span><span class="content">ItemsService</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$q</span>) {&#x000A;  <span class="keyword">return</span> {&#x000A;    <span class="function">getItem</span>: <span class="keyword">function</span>() {&#x000A;      <span class="keyword">var</span> dfd = <span class="predefined">$q</span>.defer()&#x000A;&#x000A;      setTimeout(<span class="keyword">function</span>() {&#x000A;        dfd.resolve({&#x000A;          <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">Mittens Cat</span><span class="delimiter">'</span></span>&#x000A;        })&#x000A;      }, <span class="integer">2000</span>)&#x000A;&#x000A;      <span class="keyword">return</span> dfd.promise&#x000A;    }&#x000A;  }&#x000A;})&#x000A;&#x000A;app.controller(<span class="string"><span class="delimiter">'</span><span class="content">ItemCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(item) {&#x000A;  <span class="local-variable">this</span>.item = item&#x000A;})</pre></div>
               </div>
               </div>
               
-              <h2 id="going-vertical">Going vertical</h2>
+              <p>Resolve understands promises when they are returned, avoiding any boilerplate code. Note that <code>resolve</code> consists of an object. The object’s key specifies what the name of the injected results will be, while the value is a function that returns a value or a promise.</p>
               
-              <p>Because of Ionic’s use of CSS flexbox, we can also use the grid vertically. Here are three placeholder images, all with a slightly different alignment of the caption text:</p>
-              
-              <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://placehold.it/280x150</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption Top<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row row-center</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://placehold.it/280x150</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption Middle<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row row-bottom</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://placehold.it/280x150</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption Middle<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
-              </div>
-              </div>
-              
-              <p>If we need more granularity, we can do vertical alignment on the columns as well:</p>
-              
-              <div><div class="CodeRay">
-                <div class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://placehold.it/150x190</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col col-top</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption Top<span class="tag">&lt;/div&gt;</span>&#x000A;  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col col-bottom</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Caption bottom<span class="tag">&lt;/div&gt;</span>&#x000A;<span class="tag">&lt;/div&gt;</span></pre></div>
-              </div>
-              </div>
-              
-              <p>This example has two captions equally spaced with the image - one sits on top, and one sits on bottom.</p>
-              
-              <p>The scratchpad below has everything you need to get started using Ionic’s grid and endlessly customizing your apps!</p>
+              <p>Because of this, our controller is reduced to a single line containing the resolved item. Check out the information below, and simplify fetching your data across your entire application.</p>
               <section class='scratchpad'>
                 <p>Try this tutorial out below in the Scratchpad:</p>
                 <div id='scratch'></div>
               </section>
-              <footer>
-                <h6>further reading</h6>
-                <div class='similar-items list'>
-                  <div class='item-row'>
-                    <div class='similar-item'>
-                      <a href='/formulas/making-modals/'>Making Modals</a>
-                      <p>Modals are an essential UI component of any app needing to show a detail view. This formula goes into the details of making those modals.</p>
-                    </div>
-                  </div>
-                  <div class='rule'></div>
-                  <div class='similar-item'>
-                    <a href='/formulas/action-sheets/'>Understanding Action Sheets</a>
-                    <p>Action sheets can be a useful UI for providing contextual actions. Learn how to create one, and use custom gestures as a bonus.</p>
-                  </div>
-                  <div class='item-row'>
-                    <div class='similar-item'>
-                      <a href='/formulas/using-the-grid/'>Using the Grid</a>
-                      <p>Get started with using Ionic's grid system to organize your content.</p>
-                    </div>
-                  </div>
-                  <div class='rule'></div>
-                  <div class='similar-item'>
-                    <a href='/formulas/pull-to-refresh/'>Pull to Refresh</a>
-                    <p>Update your lists in real time using pull-to-refresh with the handy ion-refresher directive!</p>
-                  </div>
-                  <div class='item-row'>
-                    <div class='similar-item'>
-                      <a href='/formulas/navigation-bar-vs-header-bar/'>Navigating Ionic's Headers</a>
-                      <p>Ionic includes multiple ways to display a header at the top of the screen. Learn the difference between nav bars and header bars, and when to use each.</p>
-                    </div>
-                  </div>
-                </div>
-              </footer>
             </article>
           </div>
         </div>

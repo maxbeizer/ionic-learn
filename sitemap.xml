@@ -56,7 +56,7 @@
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/data-the-right-way/</loc>
-    <lastmod>2014-06-24</lastmod>
+    <lastmod>2014-07-01</lastmod>
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/data-the-right-way/style.css</loc>
@@ -86,6 +86,18 @@
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/ionic-lists/</loc>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/loading-screen-with-interceptors/</loc>
+    <lastmod>2014-07-01</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/loading-screen-with-interceptors/style.css</loc>
+    <lastmod>2014-06-24</lastmod>
+  </url>
+  <url>
+    <loc>http://learn.ionicframework.com/formulas/loading-screen-with-interceptors/template.html</loc>
+    <lastmod>2014-07-01</lastmod>
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/localstorage/</loc>
@@ -161,10 +173,6 @@
   <url>
     <loc>http://learn.ionicframework.com/formulas/pull-to-refresh/template.html</loc>
     <lastmod>2014-06-24</lastmod>
-  </url>
-  <url>
-    <loc>http://learn.ionicframework.com/formulas/return-to-top/</loc>
-    <lastmod>2014-07-01</lastmod>
   </url>
   <url>
     <loc>http://learn.ionicframework.com/formulas/testing/</loc>
