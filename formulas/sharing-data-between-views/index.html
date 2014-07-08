@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta charset='utf-8'>
+    <title>Sharing Data Between Views | Formulas | Learn Ionic</title>
+    <link href='/css/site.css' rel='stylesheet'>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-44023830-6', 'ionicframework.com');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body class='full-page no-js'>
+    <script>
+      document.body.classList.remove('no-js');
+    </script>
+    <div class='container'>
+      <div class='row'>
+        <div class='side-nav'>
+          <div class='logo'>
+            <a href='/'>
+              <img alt='Learn Ionic Framework' height='43' src='/img/learn-ionicframework@2x.png' width='194'>
+            </a>
+          </div>
+          <nav>
+            <ul>
+              <li>
+                <a href='/videos/'>
+                  <i class='ion-videos'></i>
+                  <p>Videos</p>
+                </a>
+              </li>
+              <li>
+                <a class='active' href='/formulas/'>
+                  <i class='ion-formulas'></i>
+                  <p>Formulas</p>
+                </a>
+              </li>
+              <li>
+                <a href='/talks/'>
+                  <i class='ion-talks'></i>
+                  <p>Talks</p>
+                </a>
+              </li>
+              <li>
+                <a href='/resources/'>
+                  <i class='ion-resources'></i>
+                  <p>Resources</p>
+                </a>
+              </li>
+            </ul>
+            <footer>
+              <ul>
+                <li>
+                  <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_new'>
+                    <i class='ion-suggestions'></i>
+                    <p>Suggest a Topic</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='http://forum.ionicframework.com/' target='_new'>
+                    <i class='ion-forum'></i>
+                    <p>Forums</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://github.com/driftyco/ionic' target='_new'>
+                    <i class='ion-github'></i>
+                    <p>Github</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://twitter.com/ionicframework' target='_new'>
+                    <i class='ion-twitter'></i>
+                    <p>Twitter</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://plus.google.com/+Ionicframework/posts' target='_new'>
+                    <i class='ion-googleplus'></i>
+                    <p>Plus</p>
+                  </a>
+                </li>
+              </ul>
+            </footer>
+            <form action='http://codiqa.createsend.com/t/t/s/thodi/' class='email-digest' method='post'>
+              <label for='cm-thodi-thodi'>
+                <p>Sign up for the weekly Learn Digest!</p>
+              </label>
+              <div class='digest-wrapper'>
+                <input name='cm-thodi-thodi' placeholder='Email address' required type='email'>
+                <input type='submit' value='Go'>
+              </div>
+            </form>
+            <div class='email-digest-success'>
+              <p>Thanks for signing up. Every Friday you'll get an update on all of the new and exciting lessons on Learn Ionic!</p>
+            </div>
+          </nav>
+        </div>
+        <div class='main-pane'>
+          <div class='content formula'>
+            <nav>
+              <a class='left' href='/formulas/'>
+                <i class='ion-chevron-left'></i>
+                <span style='margin-left:0px;'>All Formulas</span>
+              </a>
+            </nav>
+            <article>
+              <header>
+                <h1>Sharing Data Between Views</h1>
+                <div class='byline'>
+                  <img src='/img/authors/gerred-dillon.png'>
+                  <span class='author'>
+                    Written by
+                    <a href='https://twitter.com/justicefries' target='_new'>Gerred Dillon</a>
+                  </span>
+                  <time></time>
+                </div>
+                <div class='social-buttons'>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-via="ionicframework" data-related="ionicframework">Tweet</a>
+                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div>
+              </header>
+              <h2 id="a-simple-detail-view">A Simple Detail View</h2>
+              
+              <p>Building detail-list view structures in mobile applications is a very common pattern. When this is static, it is easy to navigate through our application. If this is something you haven’t seen before, check out our series on <a href="http://learn.ionicframework.com/formulas/navigation-and-routing-part-1/">the Ionic navigation stack</a>. This formula will use Ionic’s navigation system, but we won’t get into the details of how it works.</p>
+              
+              <p>For now, let’s build out a simple list-detail view, powered by Ionic’s navigation system. The markup is straightforward, and includes two templates for our router to use:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="tag">&lt;ion-nav-bar</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">'</span><span class="content">bar-positive</span><span class="delimiter">'</span></span><span class="tag">&gt;</span>&#x000A;  <span class="tag">&lt;ion-nav-back-button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button-clear</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;i</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ion-arrow-left-c</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/i&gt;</span> Back&#x000A;  <span class="tag">&lt;/ion-nav-back-button&gt;</span>&#x000A;<span class="tag">&lt;/ion-nav-bar&gt;</span>&#x000A;<span class="tag">&lt;ion-nav-view</span> <span class="attribute-name">animation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">slide-left-right</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/ion-nav-view&gt;</span>&#x000A;&#x000A;<span class="tag">&lt;script</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/ng-template</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">todos.html</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;<span class="inline">  &lt;ion-view title=<span class="string"><span class="delimiter">&quot;</span><span class="content">Todos</span><span class="delimiter">&quot;</span></span>&gt;&#x000A;    &lt;ion-content&gt;&#x000A;      &lt;ion-list&gt;&#x000A;        &lt;ion-item ng-repeat=<span class="string"><span class="delimiter">&quot;</span><span class="content">todo in todos</span><span class="delimiter">&quot;</span></span> ui-sref=<span class="string"><span class="delimiter">'</span><span class="content">todo({todoId: todo.id})</span><span class="delimiter">'</span></span> ng-<span class="reserved">class</span>=<span class="string"><span class="delimiter">'</span><span class="content">{done: todo.done}</span><span class="delimiter">'</span></span>&gt;{{todo.name}}&lt;<span class="regexp"><span class="delimiter">/</span><span class="content">ion-item&gt;&#x000A;      &lt;</span><span class="delimiter">/</span><span class="modifier">i</span></span>on-list&gt;&#x000A;    &lt;<span class="regexp"><span class="delimiter">/</span><span class="content">ion-content&gt;&#x000A;  &lt;</span><span class="delimiter">/</span><span class="modifier">i</span></span>on-view&gt;</span>&#x000A;<span class="tag">&lt;/script&gt;</span>&#x000A;&#x000A;<span class="tag">&lt;script</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/ng-template</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">todo.html</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;<span class="inline">  &lt;ion-view title=<span class="string"><span class="delimiter">&quot;</span><span class="content">Edit Todo</span><span class="delimiter">&quot;</span></span>&gt;&#x000A;    &lt;ion-content&gt;&#x000A;      <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">list</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;        <span class="tag">&lt;label</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">item item-input</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;          <span class="tag">&lt;span</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">input-label</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Name<span class="tag">&lt;/span&gt;</span>&#x000A;          <span class="tag">&lt;input</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ng-model</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">todo.name</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;        <span class="tag">&lt;/label&gt;</span>&#x000A;        <span class="tag">&lt;ion-toggle</span> <span class="attribute-name">ng-model</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">todo.done</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">toggle-class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">toggle-calm</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Done<span class="tag">&lt;/ion-toggle&gt;</span>&#x000A;      <span class="tag">&lt;/div&gt;</span>&#x000A;    &lt;<span class="regexp"><span class="delimiter">/</span><span class="content">ion-content&gt;&#x000A;  &lt;</span><span class="delimiter">/</span><span class="modifier">i</span></span>on-view&gt;</span>&#x000A;<span class="tag">&lt;/script&gt;</span></pre></div>
+              </div>
+              </div>
+              
+              <p>This setups a basic <code>ion-nav-view</code> with two possible subviews. Let’s wire this up to our application’s Javascript:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre>app.config(<span class="keyword">function</span>(<span class="predefined">$stateProvider</span>, <span class="predefined">$urlRouterProvider</span>) {&#x000A;  <span class="predefined">$urlRouterProvider</span>.otherwise(<span class="string"><span class="delimiter">'</span><span class="content">/todos</span><span class="delimiter">'</span></span>)&#x000A;&#x000A;  <span class="predefined">$stateProvider</span>&#x000A;  .state(<span class="string"><span class="delimiter">'</span><span class="content">todos</span><span class="delimiter">'</span></span>, {&#x000A;    <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/todos</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">controller</span>: <span class="string"><span class="delimiter">'</span><span class="content">TodosCtrl</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">templateUrl</span>: <span class="string"><span class="delimiter">'</span><span class="content">todos.html</span><span class="delimiter">'</span></span>&#x000A;  })&#x000A;  .state(<span class="string"><span class="delimiter">'</span><span class="content">todo</span><span class="delimiter">'</span></span>, {&#x000A;    <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/todos/:todoId</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">controller</span>: <span class="string"><span class="delimiter">'</span><span class="content">TodoCtrl</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">templateUrl</span>: <span class="string"><span class="delimiter">'</span><span class="content">todo.html</span><span class="delimiter">'</span></span>&#x000A;  })&#x000A;})&#x000A;&#x000A;app.controller(<span class="string"><span class="delimiter">'</span><span class="content">TodosCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$scope</span>) {&#x000A;  <span class="predefined">$scope</span>.todos = []&#x000A;})&#x000A;&#x000A;app.controller(<span class="string"><span class="delimiter">'</span><span class="content">TodoCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$scope</span>) {&#x000A;})</pre></div>
+              </div>
+              </div>
+              
+              <h2 id="sharing-data-with-services">Sharing Data with Services</h2>
+              
+              <p>We now have a basic, functioning app. We are missing a key element, however: data! It may be tempting to pass data around through the <code>$rootScope</code>, but this is problematic. To start, your data is now bound to the root scope, and can’t be moved off into isolation. Not only is this harder to test, but it can’t be used through multiple applications if need be.</p>
+              
+              <p>There is also the matter of separation of concerns. Our controllers now know about model-level details, and the implementation of our todos system. There’s a better way. By creating a service for our Todos application and injecting it where needed, we can clean up our code significantly:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre>app.service(<span class="string"><span class="delimiter">'</span><span class="content">TodosService</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$q</span>) {&#x000A;  <span class="keyword">return</span> {&#x000A;    <span class="key">todos</span>: [&#x000A;      {&#x000A;        <span class="key">id</span>: <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>,&#x000A;        <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">Pick up apples</span><span class="delimiter">'</span></span>,&#x000A;        <span class="key">done</span>: <span class="predefined-constant">false</span>&#x000A;      },&#x000A;      {&#x000A;        <span class="key">id</span>: <span class="string"><span class="delimiter">'</span><span class="content">2</span><span class="delimiter">'</span></span>,&#x000A;        <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">Mow the lawn</span><span class="delimiter">'</span></span>,&#x000A;        <span class="key">done</span>: <span class="predefined-constant">true</span>&#x000A;      }&#x000A;    ],&#x000A;    <span class="function">getTodos</span>: <span class="keyword">function</span>() {&#x000A;      <span class="keyword">return</span> <span class="local-variable">this</span>.todos&#x000A;    },&#x000A;    <span class="function">getTodo</span>: <span class="keyword">function</span>(todoId) {&#x000A;      <span class="keyword">var</span> dfd = <span class="predefined">$q</span>.defer()&#x000A;      <span class="local-variable">this</span>.todos.forEach(<span class="keyword">function</span>(todo) {&#x000A;        <span class="keyword">if</span> (todo.id === todoId) dfd.resolve(todo)&#x000A;      })&#x000A;&#x000A;      <span class="keyword">return</span> dfd.promise&#x000A;    }&#x000A;&#x000A;  }&#x000A;})</pre></div>
+              </div>
+              </div>
+              
+              <p>This is a basic service that allows us to get the full list of todos, as well as retrieve a single item. The only thing left is to get this into our controllers. To do that, let’s use the <code>resolve</code> step of the router, and inject data into our controllers. This keeps our controllers from knowing about the details of the Todos service, and focuses on them using the data correctly. If this is unfamiliar to you, check out the formula on <a href="http://learn.ionicframework.com/formulas/data-the-right-way/">data resolution with Ionic’s router</a>.</p>
+              
+              <p>With that, our app config’s states have changed slightly:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="predefined">$stateProvider</span>&#x000A;  .state(<span class="string"><span class="delimiter">'</span><span class="content">todos</span><span class="delimiter">'</span></span>, {&#x000A;    <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/todos</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">controller</span>: <span class="string"><span class="delimiter">'</span><span class="content">TodosCtrl</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">templateUrl</span>: <span class="string"><span class="delimiter">'</span><span class="content">todos.html</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">resolve</span>: {&#x000A;      <span class="function">todos</span>: <span class="keyword">function</span>(TodosService) {&#x000A;        <span class="keyword">return</span> TodosService.getTodos()&#x000A;      }&#x000A;    }&#x000A;  })&#x000A;  .state(<span class="string"><span class="delimiter">'</span><span class="content">todo</span><span class="delimiter">'</span></span>, {&#x000A;    <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/todos/:todoId</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">controller</span>: <span class="string"><span class="delimiter">'</span><span class="content">TodoCtrl</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">templateUrl</span>: <span class="string"><span class="delimiter">'</span><span class="content">todo.html</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">resolve</span>: {&#x000A;      <span class="function">todo</span>: <span class="keyword">function</span>(<span class="predefined">$stateParams</span>, TodosService) {&#x000A;        <span class="keyword">return</span> TodosService.getTodo(<span class="predefined">$stateParams</span>.todoId)&#x000A;      }&#x000A;    }&#x000A;  })&#x000A;})</pre></div>
+              </div>
+              </div>
+              
+              <p>Notice the new resolve step, which will ultimately make the relevant keys available for injection inside the route’s controller. Our controllers, thus, also change a little:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre>app.controller(<span class="string"><span class="delimiter">'</span><span class="content">TodosCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$scope</span>, todos) {&#x000A;  <span class="predefined">$scope</span>.todos = todos&#x000A;})&#x000A;&#x000A;app.controller(<span class="string"><span class="delimiter">'</span><span class="content">TodoCtrl</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(<span class="predefined">$scope</span>, todo) {&#x000A;  <span class="predefined">$scope</span>.todo = todo&#x000A;})</pre></div>
+              </div>
+              </div>
+              
+              <p>Notice that the controllers know nothing about the TodosService, only about the data relevant to them.</p>
+              
+              <p>Check out the Scratchpad below to see this all in action!</p>
+              <section class='scratchpad'>
+                <p>Try this tutorial out below in the Scratchpad:</p>
+                <div id='scratch'></div>
+              </section>
+              <footer>
+                <h6>further reading</h6>
+                <div class='similar-items list'>
+                  <div class='item-row'>
+                    <div class='similar-item'>
+                      <a href='/formulas/data-the-right-way/'>Resolving Data the Right Way</a>
+                      <p>Handling data dependencies in your applications can be difficult. Learn how to use the router's resolve step to handle dependencies.</p>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </div>
+      <footer class='main'>
+        <span class='attribution'>&copy; 2014 Drifty Co.</span>
+        <span class='expand-wrapper'>
+          <span class='expand'></span>
+        </span>
+        <nav id='nav'>
+          <a href='http://ionicframework.com' target='_blank'>Ionic</a>
+          <a href='https://github.com/driftyco/ionic' target='_blank'>Github</a>
+          <a href='mailto:hi@ionicframework.com' target='_blank'>Contact us</a>
+          <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_blank'>Suggestions</a>
+          <a href='http://ionicons.com/' target='_blank'>Ionicons</a>
+          <a href='http://ionicframework.com/jobs/' target='_blank'>Jobs</a>
+          <a href='http://forum.ionicframework.com/' target='_blank'>Forum</a>
+          <a href='http://ionicframework.com/blog/' target='_blank'>Blog</a>
+          <a href='http://drifty.com' target='_blank'>Drifty Co</a>
+        </nav>
+      </footer>
+    </div>
+    <div class='get-ionic-wrapper viewed'>
+      <a class='get-ionic' href='http://www.ionicframework.com' target='_new'>Get building with Ionic today!</a>
+      <a class='close-cta ion-ios7-close-empty' href='#'></a>
+    </div>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js'></script>
+    <script src='//scratch.ionicsdk.com/static/js/embed.js'></script>
+      <script>
+        $(function() {
+          var getTemplate = function(url) {
+            return $.ajax({url: location.pathname + '/' + url, dataType: 'text'})
+          }
+        
+          $.when(getTemplate('template.html'), getTemplate('style.css'), getTemplate('script.js')).then(function(html, css, js) {
+            var scratch = new IonicScratch({
+              el: document.getElementById('scratch'),
+              width: '100%',
+              height: '600px',
+              html: html[0],
+              css: css[0],
+              js: js[0]
+            });
+          })
+        })
+      </script>
+    <script src='/js/main.js'></script>
+  </body>
+</html>
