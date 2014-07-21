@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta charset='utf-8'>
+    <title>Customizing the Splash Screen | Formulas | Learn Ionic</title>
+    <link href='/css/site.css' rel='stylesheet'>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-44023830-6', 'ionicframework.com');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body class='full-page no-js'>
+    <script>
+      document.body.classList.remove('no-js');
+    </script>
+    <div class='container'>
+      <div class='row'>
+        <div class='side-nav'>
+          <div class='logo'>
+            <a href='/'>
+              <img alt='Learn Ionic Framework' height='43' src='/img/learn-ionicframework@2x.png' width='194'>
+            </a>
+          </div>
+          <nav>
+            <ul>
+              <li>
+                <a href='/videos/'>
+                  <i class='ion-videos'></i>
+                  <p>Videos</p>
+                </a>
+              </li>
+              <li>
+                <a class='active' href='/formulas/'>
+                  <i class='ion-formulas'></i>
+                  <p>Formulas</p>
+                </a>
+              </li>
+              <li>
+                <a href='/talks/'>
+                  <i class='ion-talks'></i>
+                  <p>Talks</p>
+                </a>
+              </li>
+              <li>
+                <a href='/resources/'>
+                  <i class='ion-resources'></i>
+                  <p>Resources</p>
+                </a>
+              </li>
+            </ul>
+            <footer>
+              <ul>
+                <li>
+                  <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_new'>
+                    <i class='ion-suggestions'></i>
+                    <p>Suggest a Topic</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='http://forum.ionicframework.com/' target='_new'>
+                    <i class='ion-forum'></i>
+                    <p>Forums</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://github.com/driftyco/ionic' target='_new'>
+                    <i class='ion-github'></i>
+                    <p>Github</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://twitter.com/ionicframework' target='_new'>
+                    <i class='ion-twitter'></i>
+                    <p>Twitter</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://plus.google.com/+Ionicframework/posts' target='_new'>
+                    <i class='ion-googleplus'></i>
+                    <p>Plus</p>
+                  </a>
+                </li>
+              </ul>
+            </footer>
+            <form action='http://codiqa.createsend.com/t/t/s/thodi/' class='email-digest' method='post'>
+              <label for='cm-thodi-thodi'>
+                <p>Sign up for the weekly Learn Digest!</p>
+              </label>
+              <div class='digest-wrapper'>
+                <input name='cm-thodi-thodi' placeholder='Email address' required type='email'>
+                <input type='submit' value='Go'>
+              </div>
+            </form>
+            <div class='email-digest-success'>
+              <p>Thanks for signing up. Every Friday you'll get an update on all of the new and exciting lessons on Learn Ionic!</p>
+            </div>
+          </nav>
+        </div>
+        <div class='main-pane'>
+          <div class='content formula'>
+            <nav>
+              <a class='left' href='/formulas/'>
+                <i class='ion-chevron-left'></i>
+                <span style='margin-left:0px;'>All Formulas</span>
+              </a>
+            </nav>
+            <article>
+              <header>
+                <h1>Customizing the Splash Screen</h1>
+                <div class='byline'>
+                  <img src='/img/authors/gerred-dillon.png'>
+                  <span class='author'>
+                    Written by
+                    <a href='https://twitter.com/justicefries' target='_new'>Gerred Dillon</a>
+                  </span>
+                  <time></time>
+                </div>
+                <div class='social-buttons'>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-via="ionicframework" data-related="ionicframework">Tweet</a>
+                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div>
+              </header>
+              <p>Creating a custom splash screen in Ionic is simple. With ngCordova, it’s even easier to customize to your needs.</p>
+              
+              <h2 id="making-an-app">Making an App</h2>
+              
+              <p>To start, make a new Ionic app and add the platforms you intend to distribute on. To do this, we will use the <code>ionic</code> npm module binary. For iOS, you will need XCode Tools installed, and for Android, the Android SDK is required.</p>
+              
+              <p>If you don’t have the Ionic command line tool installed, make sure you have the latest Node.js and NPM installed. From there, <code>npm install -g ionic cordova ios-sim</code> will set you up with everything you need to simulate iOS apps with Ionic.</p>
+              
+              <p>Once all of this is installed, setting up an Ionic app for the platforms is easy:</p>
+              
+              <pre><code>ionic start &lt;appname&gt; &lt;template&gt;&#x000A;ionic platform add &lt;platform&gt;&#x000A;</code></pre>
+              
+              <p>In this formula, we will stick to iOS, but Android is very similar. Let’s create a basic tabbed application:</p>
+              
+              <pre><code>ionic start splashscreenApp tabs&#x000A;ionic platform add ios&#x000A;</code></pre>
+              
+              <p>From there, let’s look the layout of our application. For brevity’s sake, I’m only including the paths for our splash screen:</p>
+              
+              <pre><code>├── README.md&#x000A;├── bower.json&#x000A;├── config.xml&#x000A;├── gulpfile.js&#x000A;├── hooks&#x000A;│   └── README.md&#x000A;├── ionic.project&#x000A;├── package.json&#x000A;├── platforms&#x000A;│   └── ios&#x000A;│       ├── CordovaLib&#x000A;│       ├── cordova&#x000A;│       ├── platform_www&#x000A;│       ├── splashscreen&#x000A;│       │   ├── Resources&#x000A;│       │   │   ├── de.lproj&#x000A;│       │   │   ├── en.lproj&#x000A;│       │   │   ├── es.lproj&#x000A;│       │   │   ├── icons&#x000A;│       │   │   ├── se.lproj&#x000A;│       │   │   └── splash&#x000A;│       │   │       ├── Default-568h@2x~iphone.png&#x000A;│       │   │       ├── Default-Landscape@2x~ipad.png&#x000A;│       │   │       ├── Default-Landscape~ipad.png&#x000A;│       │   │       ├── Default-Portrait@2x~ipad.png&#x000A;│       │   │       ├── Default-Portrait~ipad.png&#x000A;│       │   │       ├── Default@2x~iphone.png&#x000A;│       │   │       └── Default~iphone.png&#x000A;│       ├── splashscreen.xcodeproj&#x000A;│       └── www&#x000A;├── plugins&#x000A;├── scss&#x000A;└── www&#x000A;</code></pre>
+              
+              <p>There’s a lot of useful stuff here, but let’s focus on what we need. For iOS, the splash screen resources are located under <code>platforms/ios/splashscreen/Resources/splash</code>, and a variety of images are required to accomodate every platform. Replacing these images will give you a custom splash screen.</p>
+              
+              <h2 id="customizing-further">Customizing Further</h2>
+              
+              <p>Even though a custom splash screen is an important way to polish your app, it may not be enough. For applications that download a lot of data, or perform other operations, more control might be necessary over the display and hiding of the splash screen.</p>
+              
+              <p>Before we install ngCordova, let’s make sure the splash screen doesn’t auto-hide. Inside of <code>platforms/ios/cordova/lib/defaults.xml</code>, find the <code>AutoHideSplashScreen</code> and set it to false. There are other configuration options in here that are powerful, but we will cover these later.</p>
+              
+              <p>If you run the app with <code>ionic emulate ios</code>, the splash screen will now stay up forever. Let’s install the splash screen plugin, and add <code>ngCordova</code> to our application to have control over this.</p>
+              
+              <p>Adding the plugin is easy, and done with the <code>cordova</code> binary:</p>
+              
+              <pre><code>cordova plugin add org.apache.cordova.splashscreen&#x000A;</code></pre>
+              
+              <p>The plugin will be downloaded, installed, and made available. To control this through Ionic, install the <code>ngCordova</code> library.</p>
+              
+              <h2 id="what-is-ngcordova">What is ngCordova?</h2>
+              
+              <p><a href="http://ngcordova.com/">ngCordova</a> is a library that exposes Cordova plugins through AngularJS services. It is a very powerful and simple way to get a lot more native control over your application. Install the binary with the instructions provided. Basically, just download the script, insert it into your <code>www/lib</code> folder, and add a script tag above <code>cordova.js</code>:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="tag">&lt;script</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">lib/ngCordova/dist/ng-cordova.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>&#x000A;<span class="tag">&lt;script</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cordova.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span></pre></div>
+              </div>
+              </div>
+              
+              <p>You will also need to declare it as a dependency of your AngularJS app:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="keyword">var</span> app = angular.module(<span class="string"><span class="delimiter">'</span><span class="content">ionicApp</span><span class="delimiter">'</span></span>, [<span class="string"><span class="delimiter">'</span><span class="content">ionic</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">ngCordova</span><span class="delimiter">'</span></span>])</pre></div>
+              </div>
+              </div>
+              
+              <h2 id="controlling-the-splash-screen">Controlling the Splash Screen</h2>
+              
+              <p>Now that the splash screen is installed, let’s hide it on completion of some task. In this case, we will do it 5 seconds after running:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre>app.run(<span class="keyword">function</span>(<span class="predefined">$cordovaSplashScreen</span>) {&#x000A;  setTimeout(<span class="keyword">function</span>() {&#x000A;    <span class="predefined">$cordovaSplashScreen</span>.hide()&#x000A;  }, <span class="integer">5000</span>)&#x000A;})</pre></div>
+              </div>
+              </div>
+              
+              <p>More likely, you will want to do it on resolution of some promise:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre>app.run(<span class="keyword">function</span>(MyDataService) {&#x000A;  MyDataService.getThings().then(<span class="keyword">function</span>(data) {&#x000A;    <span class="predefined">$cordovaSplashScreen</span>.hide()&#x000A;  })&#x000A;})</pre></div>
+              </div>
+              </div>
+              
+              <p>Even better if you do it in the <code>resolve</code> step within your routing layer. This is covered in more detail in another formula.</p>
+              
+              <h2 id="parting-words">Parting Words</h2>
+              
+              <p>Having direct control of your splash screen is an important part in creating that final polish over your application. Try it out, and let us know what you think!</p>
+              <footer>
+                <h6>further reading</h6>
+                <div class='similar-items list'>
+                  <div class='item-row'>
+                    <div class='similar-item'>
+                      <a href='/formulas/making-modals/'>Making Modals</a>
+                      <p>Modals are an essential UI component of any app needing to show a detail view. This formula goes into the details of making those modals.</p>
+                    </div>
+                  </div>
+                  <div class='rule'></div>
+                  <div class='similar-item'>
+                    <a href='/formulas/action-sheets/'>Understanding Action Sheets</a>
+                    <p>Action sheets can be a useful UI for providing contextual actions. Learn how to create one, and use custom gestures as a bonus.</p>
+                  </div>
+                  <div class='item-row'>
+                    <div class='similar-item'>
+                      <a href='/formulas/using-the-grid/'>Using the Grid</a>
+                      <p>Get started with using Ionic's grid system to organize your content.</p>
+                    </div>
+                  </div>
+                  <div class='rule'></div>
+                  <div class='similar-item'>
+                    <a href='/formulas/pull-to-refresh/'>Pull to Refresh</a>
+                    <p>Update your lists in real time using pull-to-refresh with the handy ion-refresher directive!</p>
+                  </div>
+                  <div class='item-row'>
+                    <div class='similar-item'>
+                      <a href='/formulas/navigation-bar-vs-header-bar/'>Navigating Ionic's Headers</a>
+                      <p>Ionic includes multiple ways to display a header at the top of the screen. Learn the difference between nav bars and header bars, and when to use each.</p>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </div>
+      <footer class='main'>
+        <span class='attribution'>&copy; 2014 Drifty Co.</span>
+        <span class='expand-wrapper'>
+          <span class='expand'></span>
+        </span>
+        <nav id='nav'>
+          <a href='http://ionicframework.com' target='_blank'>Ionic</a>
+          <a href='https://github.com/driftyco/ionic' target='_blank'>Github</a>
+          <a href='mailto:hi@ionicframework.com' target='_blank'>Contact us</a>
+          <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_blank'>Suggestions</a>
+          <a href='http://ionicons.com/' target='_blank'>Ionicons</a>
+          <a href='http://ionicframework.com/jobs/' target='_blank'>Jobs</a>
+          <a href='http://forum.ionicframework.com/' target='_blank'>Forum</a>
+          <a href='http://ionicframework.com/blog/' target='_blank'>Blog</a>
+          <a href='http://drifty.com' target='_blank'>Drifty Co</a>
+        </nav>
+      </footer>
+    </div>
+    <div class='get-ionic-wrapper viewed'>
+      <a class='get-ionic' href='http://www.ionicframework.com' target='_new'>Get building with Ionic today!</a>
+      <a class='close-cta ion-ios7-close-empty' href='#'></a>
+    </div>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js'></script>
+    <script src='//scratch.ionicsdk.com/static/js/embed.js'></script>
+    <script src='/js/main.js'></script>
+  </body>
+</html>
