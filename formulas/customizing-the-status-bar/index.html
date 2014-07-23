@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta charset='utf-8'>
+    <title>Customizing the Status Bar | Formulas | Learn Ionic</title>
+    <link href='/css/site.css' rel='stylesheet'>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css' rel='stylesheet'>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-44023830-6', 'ionicframework.com');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body class='full-page no-js'>
+    <script>
+      document.body.classList.remove('no-js');
+    </script>
+    <div class='container'>
+      <div class='row'>
+        <div class='side-nav'>
+          <div class='logo'>
+            <a href='/'>
+              <img alt='Learn Ionic Framework' height='43' src='/img/learn-ionicframework@2x.png' width='194'>
+            </a>
+          </div>
+          <nav>
+            <ul>
+              <li>
+                <a href='/videos/'>
+                  <i class='ion-videos'></i>
+                  <p>Videos</p>
+                </a>
+              </li>
+              <li>
+                <a class='active' href='/formulas/'>
+                  <i class='ion-formulas'></i>
+                  <p>Formulas</p>
+                </a>
+              </li>
+              <li>
+                <a href='/talks/'>
+                  <i class='ion-talks'></i>
+                  <p>Talks</p>
+                </a>
+              </li>
+              <li>
+                <a href='/resources/'>
+                  <i class='ion-resources'></i>
+                  <p>Resources</p>
+                </a>
+              </li>
+            </ul>
+            <footer>
+              <ul>
+                <li>
+                  <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_new'>
+                    <i class='ion-suggestions'></i>
+                    <p>Suggest a Topic</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='http://forum.ionicframework.com/' target='_new'>
+                    <i class='ion-forum'></i>
+                    <p>Forums</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://github.com/driftyco/ionic' target='_new'>
+                    <i class='ion-github'></i>
+                    <p>Github</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://twitter.com/ionicframework' target='_new'>
+                    <i class='ion-twitter'></i>
+                    <p>Twitter</p>
+                  </a>
+                </li>
+                <li>
+                  <a href='https://plus.google.com/+Ionicframework/posts' target='_new'>
+                    <i class='ion-googleplus'></i>
+                    <p>Plus</p>
+                  </a>
+                </li>
+              </ul>
+            </footer>
+            <form action='http://codiqa.createsend.com/t/t/s/thodi/' class='email-digest' method='post'>
+              <label for='cm-thodi-thodi'>
+                <p>Sign up for the weekly Learn Digest!</p>
+              </label>
+              <div class='digest-wrapper'>
+                <input name='cm-thodi-thodi' placeholder='Email address' required type='email'>
+                <input type='submit' value='Go'>
+              </div>
+            </form>
+            <div class='email-digest-success'>
+              <p>Thanks for signing up. Every Friday you'll get an update on all of the new and exciting lessons on Learn Ionic!</p>
+            </div>
+          </nav>
+        </div>
+        <div class='main-pane'>
+          <div class='content formula'>
+            <nav>
+              <a class='left' href='/formulas/'>
+                <i class='ion-chevron-left'></i>
+                <span style='margin-left:0px;'>All Formulas</span>
+              </a>
+            </nav>
+            <article>
+              <header>
+                <h1>Customizing the Status Bar</h1>
+                <div class='byline'>
+                  <img src='/img/authors/gerred-dillon.png'>
+                  <span class='author'>
+                    Written by
+                    <a href='https://twitter.com/justicefries' target='_new'>Gerred Dillon</a>
+                  </span>
+                  <time></time>
+                </div>
+                <div class='social-buttons'>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-via="ionicframework" data-related="ionicframework">Tweet</a>
+                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div>
+              </header>
+              <h2 id="creating-an-app">Creating an App</h2>
+              
+              <p>To customize the status bar in an Ionic application, we can use the Cordova status bar plugin. Given an Ionic app with installed platforms (if you haven’t done this before, see <a href="http://learn.ionicframework.com/formulas/splash-screen/">this article on customizing the splash screen</a>), install the status bar plugin:</p>
+              
+              <pre><code>cordova plugin add org.apache.cordova.statusbar&#x000A;</code></pre>
+              
+              <p>From there, with the <a href="http://ngcordova.com/">ngCordova</a> module installed, we get a new service called <code>$cordovaStatusBar</code> exposed to our controllers.</p>
+              
+              <p>For example, we can adjust the base style of our status bar:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="keyword">var</span> app = angular.module(<span class="string"><span class="delimiter">'</span><span class="content">ionicApp</span><span class="delimiter">'</span></span>, [<span class="string"><span class="delimiter">'</span><span class="content">ionic</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">ngCordova</span><span class="delimiter">'</span></span>])&#x000A;&#x000A;app.run(<span class="keyword">function</span>(<span class="predefined">$cordovaStatusbar</span>) {&#x000A;  <span class="predefined">$cordovaStatusbar</span>.overlaysWebView(<span class="predefined-constant">true</span>)&#x000A;&#x000A;  <span class="predefined">$cordovaStatusBar</span>.style(<span class="integer">1</span>) <span class="comment">//Light</span>&#x000A;  <span class="predefined">$cordovaStatusBar</span>.style(<span class="integer">2</span>) <span class="comment">//Black, transulcent</span>&#x000A;  <span class="predefined">$cordovaStatusBar</span>.style(<span class="integer">3</span>) <span class="comment">//Black, opaque</span>&#x000A;})</pre></div>
+              </div>
+              </div>
+              
+              <p>We even have the ability to control the color of the status bar, if your platform supports it:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="predefined">$cordovaStatusbar</span>.styleColor(<span class="string"><span class="delimiter">'</span><span class="content">black</span><span class="delimiter">'</span></span>)&#x000A;&#x000A;<span class="predefined">$cordovaStatusbar</span>.styleHex(<span class="string"><span class="delimiter">'</span><span class="content">#FF0000</span><span class="delimiter">'</span></span>) <span class="comment">//red</span></pre></div>
+              </div>
+              </div>
+              
+              <p>Depending on what you’re doing, such as displaying an image gallery, you can hide the status bar:</p>
+              
+              <div><div class="CodeRay">
+                <div class="code"><pre><span class="predefined">$cordovaStatusbar</span>.hide()&#x000A;&#x000A;<span class="predefined">$scope</span>.<span class="function">toggleStatusbar</span> = <span class="keyword">function</span>() {&#x000A;  <span class="predefined">$cordovaStatusbar</span>.isVisible() ? <span class="predefined">$cordovaStatusbar</span>.hide() : <span class="predefined">$cordovaStatusbar</span>.show()&#x000A;}</pre></div>
+              </div>
+              </div>
+              
+              <p>Notice that we’ve added a toggle status bar function. This could be useful to show the status bar when an image is tapped on. With the addition of a throttling function and a delay, a very native-like experience can be achieved.</p>
+              
+              <h2 id="parting-words">Parting Words</h2>
+              
+              <p>Changing the status bar to suit your needs is very simple, but adds a level of polish to your application. Subtle details matter in creating a native experience, so don’t forget to check out the status bar. For more polish, <a href="http://learn.ionicframework.com/formulas/splash-screen/">customize your splash screen</a>.</p>
+              <footer>
+                <h6>further reading</h6>
+                <div class='similar-items list'>
+                  <div class='item-row'>
+                    <div class='similar-item'>
+                      <a href='/formulas/cordova-camera/'>Using the Cordova Camera API</a>
+                      <p>Taking photos and video is an everyday task for most mobile users. Learn how to easily add photo and video functionality to your apps with the Cordova Camera API.</p>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </div>
+      <footer class='main'>
+        <span class='attribution'>&copy; 2014 Drifty Co.</span>
+        <span class='expand-wrapper'>
+          <span class='expand'></span>
+        </span>
+        <nav id='nav'>
+          <a href='http://ionicframework.com' target='_blank'>Ionic</a>
+          <a href='https://github.com/driftyco/ionic' target='_blank'>Github</a>
+          <a href='mailto:hi@ionicframework.com' target='_blank'>Contact us</a>
+          <a href='https://github.com/driftyco/ionic-learn/issues/new' target='_blank'>Suggestions</a>
+          <a href='http://ionicons.com/' target='_blank'>Ionicons</a>
+          <a href='http://ionicframework.com/jobs/' target='_blank'>Jobs</a>
+          <a href='http://forum.ionicframework.com/' target='_blank'>Forum</a>
+          <a href='http://ionicframework.com/blog/' target='_blank'>Blog</a>
+          <a href='http://drifty.com' target='_blank'>Drifty Co</a>
+        </nav>
+      </footer>
+    </div>
+    <div class='get-ionic-wrapper viewed'>
+      <a class='get-ionic' href='http://www.ionicframework.com' target='_new'>Get building with Ionic today!</a>
+      <a class='close-cta ion-ios7-close-empty' href='#'></a>
+    </div>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js'></script>
+    <script src='//scratch.ionicsdk.com/static/js/embed.js'></script>
+    <script src='/js/main.js'></script>
+  </body>
+</html>
